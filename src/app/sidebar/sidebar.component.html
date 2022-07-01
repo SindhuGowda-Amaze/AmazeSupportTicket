@@ -1,0 +1,45 @@
+<div class="row  tab" *ngIf="temp==1">
+    <div class="col-md-2 sidebar sidenav" style="margin-top: 84px;position: fixed;">
+
+        <a  routerLink="/Newtickets" data-toggle="collapse" class="togglebtn button" data-target="#userapplications" 
+            class="tablinks" (click)="highlight($event)" (click)="newtickets()">
+
+            <img src="assets/Images/64 Blue/Attendance Report.png" style="width:13% ;margin-right: 17px;"
+                [ngClass]="active == 'newtickets' ? 'Active1' : 'Active2'" />
+            <img [ngClass]="active != 'newtickets' ? 'Active1' : 'Active2'" src="assets/Images/64/Attendance Report.png"
+                style="width:13%; margin-right: 17px;">
+            &nbsp;
+            <span [ngClass]="active == 'newtickets' ? 'Active1' : 'Active3'"> NEW TICKETS </span>
+
+
+        </a>
+
+        <div id="userapplications" class="collapse" style="padding-left: 7%;">
+         
+            <a routerLink="/Acceptedtickets" class="tablinks" (click)="highlight($event)" (click)="accepted()">
+                <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                    [ngClass]="active == 'accepted' ? 'Active1' : 'Active2'" />
+                <img [ngClass]="active != 'accepted' ? 'Active1' : 'Active2'"
+                    src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+                &nbsp;
+                <span [ngClass]="active == 'accepted' ? 'Active1' : 'Active3'"> ACCEPTED </span>
+            </a>
+            <a routerLink="/RejetcedTickets" class="tablinks" (click)="highlight($event)" (click)="rejected()">
+                <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                    [ngClass]="active == 'rejected' ? 'Active1' : 'Active2'" />
+                <img [ngClass]="active != 'rejected' ? 'Active1' : 'Active2'"
+                    src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+                &nbsp;
+                <span [ngClass]="active == 'rejected' ? 'Active1' : 'Active3'"> REJECTED </span>
+            </a>
+
+            <a routerLink="/ClosedTickets" class="tablinks" (click)="highlight($event)" (click)="closed()">
+                <img src="assets/Images/64 Blue/ATTENDANCE/Exit Formality.png" style="width:13% ;margin-right: 17px;"
+                    [ngClass]="active == 'closed' ? 'Active1' : 'Active2'" />
+                <img [ngClass]="active != 'closed' ? 'Active1' : 'Active2'"
+                    src="assets/Images/64/ATTENDANCE/Exit Formality.png" style="width:13%; margin-right: 17px;">
+                &nbsp;
+                <span [ngClass]="active == 'closed' ? 'Active1' : 'Active3'"> CLOSED </span>
+            </a>
+        </div>
+    </div>

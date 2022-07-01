@@ -1,0 +1,187 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-11">
+            <br>
+            <p class="headings">Accepted Tickets</p>
+        </div>
+        <div class="col-lg-1">
+            <br>
+            <p class="count">Count:{{ticketList.length}} </p>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="row FilterClass ">
+            <div class="col-lg-1">
+                <p class="filter">Filter By</p>
+            </div>
+            <div class="col-lg-3">
+                <input type="search" class="form-control search" placeholder="Search for Name.." [(ngModel)]="search">
+            </div>
+            <div class="col-lg-3">
+                <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
+                    (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
+                    <option value="0">Select Company Name</option>
+                    <option *ngFor="let item of companylist" value="{{item.companyname}}">
+                        {{item.companyname}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <select class="form-control" id="applicationName" name="applicationName" [(ngModel)]="applicationName"
+                    (change)="GetapplicationName($event)" (change)="GetFilteredapplicationName()">
+                    <option value="0">Select Application Name</option>
+                    <option *ngFor="let item of applicationNamelist" value="{{item.applicationName}}">
+                        {{item.applicationName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div> <br>
+    <!-- <div class="row">
+        <div class="col-lg-10"></div>
+        <div class="col-lg-2">
+            <button class="form-control Add" routerLink="/EmployeeKraMapping">Add</button>
+        </div>
+    </div> <br> -->
+    <div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Company Name</th>
+                            <th>Application Name</th>
+                            <th>Date</th>
+                            <th>Time</th> 
+                            <th>Type Of Application Issue</th>
+                            <th>Priority</th>
+                            <th>Screenshots</th>
+                            <th>Comments</th>
+                            <th>Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+
+                            *ngFor="let details of ticketList |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
+                            <td>000{{details.id}}</td>
+                            <td>{{details.companyname}}</td>
+                            <td>{{details.applicationName}}</td>
+                            <td>{{details.date}}</td>
+                            <td>{{details.time}}</td>
+                            <td>{{details.typeOfApplicationIssues}}</td>
+                            <td>{{details.priority}}</td>
+                            <!-- <td>{{details.screenShot}}</td> -->
+                            <img  src="assets/Images/image.png" style="width:20px; height:20px" (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
+
+                            <td>
+                                <span [innerHTML]="details.chapterdescription"></span>
+                                <span style="color:#3247D5;
+                         " data-toggle="modal" data-target="#exampleModal3" (click)="view(details.comment)">View
+                                    </span>
+                            </td>
+
+                             <td>
+                                <button class=" btn btn-primary editable-table-button btn-xs"  (click)="getaccept(details.id)"  data-toggle="modal"
+                                data-target="#myModal">Close</button>
+
+                                <!-- <button class=" btn btn-primary editable-table-button btn-xs btncolor">Reject</button> -->
+
+                            </td> 
+                        </tr>
+                    </tbody>
+                </table>
+                <span *ngIf="ticketList.length==0">No Data </span>
+                <div class="text-right">
+                    <br>
+                    <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog  modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Close Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+
+                        <p>Comments:</p>
+ 
+                    </div>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" rows="6" id="CloseComments" name="CloseComments" [(ngModel)]="CloseComments"></textarea>
+                    </div>
+                </div><br>
+                <p style="text-align: center;"><button class=" btn btn-primary editable-table-button btn-xs btncolor"
+                        (click)="close()" data-toggle="modal" data-target="#myModal">Close</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-size: 19px;color:#3247D5">Comments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" style="color:#0C275A ;font-size: 13px;">
+                        <p [innerHTML]="comment"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-9"></div>
+                <!-- <div class="col-lg-3">
+                    <button type="button" class="btn btn-secondary button" data-dismiss="modal">Close</button>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Related Attachments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3"  *ngFor="let details of attachmentlist">
+                        <img style="width:100px;height:auto;" src="{{details.attachment}}"><br>
+                    </div>
+                    <br>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

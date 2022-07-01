@@ -1,0 +1,81 @@
+.image{
+    margin-top: 10px;
+  }
+  .main{
+    background-color: #F3F8FF;
+  }
+  .sidebar{
+    height: 90vh;
+    overflow-y: scroll;
+  }
+  .sidenav{
+  
+    left: 0%;
+    right: 86.04%;
+    top: 8.6%;
+    bottom: -2.35%;
+    background: #FFFFFF;
+    /* ContainerWhite_DropShadow */  
+    box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.12);
+  }
+  .text{
+    margin-top: 20px;
+  }
+  .logout{
+    margin-top:18px; 
+    border-radius: 5px;
+    width:34px;
+  }
+  
+  .sidebarcss{
+    padding: 15px;
+    Width :100px;
+    Height: 50px;
+  }
+  
+  .time {
+    height: 65%;
+    background: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 19%;
+    margin-top: 4px;
+    margin-right: 10px;
+    left: 20.50%;
+    right: 75.28%;
+    top: 25.71%;
+    bottom: 24.29%;
+  background: #FFFFFF;
+  border: 1px solid #DBDBDB;
+  box-sizing: border-box;
+  border-radius: 4px;
+  }
+  
+  .time1 {
+    text-align: center;
+    letter-spacing: -0.05em;
+    color: #0C275A;
+    margin-top: 4px;
+    font-size: 27px;
+  }
+  dropdown-submenu {
+    position: relative;
+  }
+  
+  
+  .logo{
+    margin-top: 2%;
+    width: 50%;
+    height: 85%;
+  }
+  
+  .scroll{
+    overflow-y:auto;
+    height:650px;
+  }
+  
+  .overflow{
+    overflow-y: scroll;
+    height:85vh;
+  }
