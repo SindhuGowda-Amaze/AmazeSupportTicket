@@ -16,7 +16,7 @@ export class AcceptedticketsComponent implements OnInit {
   enddate:any;
   count: any;
   search:any;
-
+  issuefrom:any;
   ticketList:any;
 
   applicationName:any;
@@ -32,6 +32,7 @@ export class AcceptedticketsComponent implements OnInit {
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName="0"
+    this.issuefrom="0"
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
       this.ticketList = data.filter(x=>x.status=='accepted');
@@ -169,5 +170,13 @@ export class AcceptedticketsComponent implements OnInit {
           });
       }
     
+      public GetFilteredissuefrom(event: any) {
+        this.issuefrom=event.target.value
     
+        debugger
+          this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+            debugger
+            this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
+          });
+      }
 }

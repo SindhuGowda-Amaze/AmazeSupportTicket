@@ -18,7 +18,7 @@ export class ClosedTicketsComponent implements OnInit {
   search:any;
   comment:any
   ticketList:any;
-
+  issuefrom:any;
   applicationName:any;
   applicationNamelist:any;
   companyName:any;
@@ -28,6 +28,7 @@ export class ClosedTicketsComponent implements OnInit {
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName="0"
+    this.issuefrom="0"
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
       this.ticketList = data.filter(x=>x.status=='closed');
@@ -146,6 +147,16 @@ export class ClosedTicketsComponent implements OnInit {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
         this.ticketList = data.filter(x => x.status == 'closed' && x.date>=this.startdate && x.date<=this.enddate);
+      });
+  }
+
+  public GetFilteredissuefrom(event: any) {
+    this.issuefrom=event.target.value
+
+    debugger
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
       });
   }
 

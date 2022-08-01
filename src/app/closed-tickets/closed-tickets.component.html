@@ -52,6 +52,14 @@
                 <input class="form-control" id="date" name="date" [(ngModel)]="enddate" (change)="getenddate($event)"
                     type="date" placeholder="Duration">
             </div>
+            <div class="col-lg-3">
+                <select class="form-control" id="issuefrom" name="issuefrom" [(ngModel)]="issuefrom"
+                    (change)="GetFilteredissuefrom($event)">
+                    <option value="0">Select Issue From</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Web">Web</option>
+                </select>
+            </div>
 
         </div>
     </div> <br>
@@ -67,6 +75,8 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Issue From</th>
+                            <th>Ticket ID</th>
                             <th>Company Name</th>
                             <th>Application Name</th>
                             <th>Employee ID</th>
@@ -83,6 +93,8 @@
                     <tbody>
                         <tr
                             *ngFor="let details of ticketList |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
+                            <td>{{details.issuefrom}}</td>
+                            <td>000{{details.id}}</td>
                             <td>{{details.companyname}}</td>
                             <td>{{details.applicationName}}</td>
                             <td>{{details.staffID}}</td>

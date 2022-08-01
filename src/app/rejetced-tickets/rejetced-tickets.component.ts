@@ -22,10 +22,12 @@ export class RejetcedTicketsComponent implements OnInit {
   comment:any;
   startdate:any;
   enddate:any;
+  issuefrom:any;
   constructor(private AmazeSupportService:AmazeSupportService ) { }
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName="0"
+    this.issuefrom="0"
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
       this.ticketList = data.filter(x=>x.status=='rejected');
@@ -157,6 +159,16 @@ export class RejetcedTicketsComponent implements OnInit {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
         this.ticketList = data.filter(x => x.status == 'rejected' && x.date>=this.startdate && x.date<=this.enddate);
+      });
+  }
+
+  public GetFilteredissuefrom(event: any) {
+    this.issuefrom=event.target.value
+
+    debugger
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
       });
   }
 

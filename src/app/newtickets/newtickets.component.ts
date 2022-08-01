@@ -13,7 +13,7 @@ export class NewticketsComponent implements OnInit {
   p: any = 1;
   count1: any = 10;
   stafflistCopy: any;
-
+  issuefrom:any;
   count: any;
   search: any;
   companyName: any;
@@ -30,6 +30,7 @@ export class NewticketsComponent implements OnInit {
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName="0"
+    this.issuefrom="0"
     debugger
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
@@ -216,6 +217,15 @@ export class NewticketsComponent implements OnInit {
 
   } 
 
+  public GetFilteredissuefrom(event: any) {
+    this.issuefrom=event.target.value
+
+    debugger
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
+      });
+  }
 
   public getenddate(event: any) {
     debugger
