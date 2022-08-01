@@ -140,7 +140,7 @@ export class ClosedTicketsComponent implements OnInit {
     debugger
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'accepted' && x.date>=this.startdate && x.date<=this.enddate);
+        this.ticketList = data.filter(x => x.status == 'closed' && x.date>=this.startdate && x.date<=this.enddate);
       });
   }
 
