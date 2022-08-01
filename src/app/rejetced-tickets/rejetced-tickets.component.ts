@@ -153,6 +153,12 @@ export class RejetcedTicketsComponent implements OnInit {
     )
     
   }
+  Usercomment:any;
+  viewUserComments(user:any){
+    this.Usercomment=user;
+    
+  }
+
 
   public getenddate(event: any) {
     debugger
@@ -171,5 +177,7 @@ export class RejetcedTicketsComponent implements OnInit {
         this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
       });
   }
+
+  
 
 }
