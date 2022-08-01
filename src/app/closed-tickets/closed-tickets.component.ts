@@ -74,6 +74,11 @@ export class ClosedTicketsComponent implements OnInit {
     this.comment=desc;
     
   }
+  Usercomment:any;
+  viewUserComments(user:any){
+    this.Usercomment=user;
+    
+  }
 
   
   public GetCompanyName(evn: any) {
