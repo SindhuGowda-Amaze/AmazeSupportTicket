@@ -20,6 +20,8 @@ export class RejetcedTicketsComponent implements OnInit {
   ticketList:any;
   companyName:any;
   comment:any;
+  startdate:any;
+  enddate:any;
   constructor(private AmazeSupportService:AmazeSupportService ) { }
   ngOnInit(): void {
     this.companyName = "0"
@@ -148,6 +150,14 @@ export class RejetcedTicketsComponent implements OnInit {
       }
     )
     
+  }
+
+  public getenddate(event: any) {
+    debugger
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'rejected' && x.date>=this.startdate && x.date<=this.enddate);
+      });
   }
 
 }

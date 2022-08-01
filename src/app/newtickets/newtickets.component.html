@@ -15,9 +15,7 @@
             <div class="col-lg-1">
                 <p class="filter">Filter By</p>
             </div>
-            <div class="col-lg-3">
-                <input type="search" class="form-control search" placeholder="Search for Name.." [(ngModel)]="search">
-            </div>
+         
             <div class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
@@ -36,7 +34,25 @@
                     </option>
                 </select>
             </div>
+            <div class="col-lg-5">
+                <input type="search" class="form-control search" placeholder="Search for Name.." [(ngModel)]="search">
+            </div>
+        </div>
+        <br>
+      
+        <div class="row FilterClass" >
             <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+           
+                <input class="form-control" id="date" name="date" [(ngModel)]="startdate" type="date"
+                    placeholder="Duration">
+            </div>
+            <div class="col-lg-3">
+       
+                <input class="form-control" id="date" name="date" [(ngModel)]="enddate"
+                    (change)="getenddate($event)" type="date" placeholder="Duration">
+            </div>
+          
         </div>
     </div> <br>
     <!-- <div class="row">
@@ -54,6 +70,7 @@
                             <th>Ticket ID</th>
                             <th>Company Name</th>
                             <th>Application Name</th>
+                            <th>Employee ID</th>
                             <th>Role</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -70,8 +87,9 @@
                             <td>000{{details.id}}</td>
                             <td>{{details.companyname}}</td>
                             <td>{{details.applicationName}}</td>
+                            <td>{{details.id}}</td>
                             <td>{{details.role}}</td>
-                            <td>{{details.date}}</td>
+                            <td>{{details.date|date}}</td>
                             <td>{{details.time}}</td>
                             <td>{{details.typeOfApplicationIssues}}</td>
                             <td>{{details.priority}}</td>

@@ -22,6 +22,9 @@ export class NewticketsComponent implements OnInit {
   rejectcomments: any;
   applicationName:any;
   applicationNamelist:any;
+
+  startdate:any;
+  enddate:any;
   
   constructor(private AmazeSupportService: AmazeSupportService) { }
   ngOnInit(): void {
@@ -212,6 +215,15 @@ export class NewticketsComponent implements OnInit {
     }
 
   } 
+
+
+  public getenddate(event: any) {
+    debugger
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'Open' && x.date>=this.startdate && x.date<=this.enddate);
+      });
+  }
 }
 
 

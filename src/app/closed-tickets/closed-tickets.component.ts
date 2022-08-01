@@ -12,7 +12,8 @@ export class ClosedTicketsComponent implements OnInit {
   p: any = 1;
   count1: any = 10;
   stafflistCopy: any;
-
+  startdate:any;
+  enddate:any;
   count: any;
   search:any;
   comment:any
@@ -134,6 +135,15 @@ export class ClosedTicketsComponent implements OnInit {
     )
     
   }
+
+  public getenddate(event: any) {
+    debugger
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'accepted' && x.date>=this.startdate && x.date<=this.enddate);
+      });
+  }
+
 
 }
 
