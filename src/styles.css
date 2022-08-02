@@ -6,7 +6,9 @@
 @import '~ng-wizard/themes/ng_wizard_theme_dots.min.css'; */
 
 
-
+.btncolor{
+  background-color: #3247d5;
+}
 .button {
     text-transform: uppercase;
     font-weight: initial;

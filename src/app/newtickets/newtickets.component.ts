@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AmazeSupportService } from '../amaze-support.service';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-newtickets',
   templateUrl: './newtickets.component.html',
@@ -22,7 +22,7 @@ export class NewticketsComponent implements OnInit {
   rejectcomments: any;
   applicationName:any;
   applicationNamelist:any;
-
+  loader:any;
   startdate:any;
   enddate:any;
   
@@ -187,8 +187,6 @@ export class NewticketsComponent implements OnInit {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
         this.ticketList = data.filter(x => x.status == 'Open' && x.companyname == this.companyName);
-
-
       });
     }
   }
@@ -233,6 +231,24 @@ export class NewticketsComponent implements OnInit {
         debugger
         this.ticketList = data.filter(x => x.status == 'Open' && x.date>=this.startdate && x.date<=this.enddate);
       });
+  }
+
+
+  //Code for Export to excel//
+  fileName = 'New Tickets REPORT.xlsx';
+  exportexcel(): void {
+    this.loader = false;
+    /* table id is passed over here */
+    let element = document.getElementById('downloadapplication');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+    this.loader = false;
   }
 }
 

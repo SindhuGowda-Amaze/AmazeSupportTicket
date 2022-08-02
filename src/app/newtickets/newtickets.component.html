@@ -15,7 +15,7 @@
             <div class="col-lg-1">
                 <p class="filter">Filter By</p>
             </div>
-         
+
             <div class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
@@ -39,18 +39,18 @@
             </div>
         </div>
         <br>
-      
-        <div class="row FilterClass" >
+
+        <div class="row FilterClass">
             <div class="col-lg-1"></div>
             <div class="col-lg-3">
-           
+
                 <input class="form-control" id="date" name="date" [(ngModel)]="startdate" type="date"
                     placeholder="Duration">
             </div>
             <div class="col-lg-3">
-       
-                <input class="form-control" id="date" name="date" [(ngModel)]="enddate"
-                    (change)="getenddate($event)" type="date" placeholder="Duration">
+
+                <input class="form-control" id="date" name="date" [(ngModel)]="enddate" (change)="getenddate($event)"
+                    type="date" placeholder="Duration">
             </div>
 
             <div class="col-lg-3">
@@ -61,7 +61,9 @@
                     <option value="Web">Web</option>
                 </select>
             </div>
-          
+            <div class="col-lg-2">
+                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to Excel</button>
+            </div>
         </div>
     </div> <br>
     <!-- <div class="row">
@@ -73,7 +75,7 @@
     <div>
         <div class="row">
             <div class="col-lg-12">
-                <table class="table">
+                <table class="table" id="downloadapplication">
                     <thead>
                         <tr>
                             <th>Issue From</th>
@@ -87,14 +89,14 @@
                             <th>Type Of Application Issue</th>
                             <th>Priority</th>
                             <th>Screenshots</th>
-                            <th>Comments</th>
+                            <th>User Comments</th>
                             <th>Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
                             *ngFor="let details of ticketList |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
-                           <td>{{details.issuefrom}}</td>
+                            <td>{{details.issuefrom}}</td>
                             <td>000{{details.id}}</td>
                             <td>{{details.companyname}}</td>
                             <td>{{details.applicationName}}</td>
@@ -105,20 +107,21 @@
                             <td>{{details.typeOfApplicationIssues}}</td>
                             <td>{{details.priority}}</td>
                             <td>
-                                <img  src="assets/Images/image.png" style="width:20px; height:20px" (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
-                       
-                            <!-- <td><img src="{{details.screenShot}}" width="100px" height="50px"></td> -->
+                                <img src="assets/Images/image.png" style="width:20px; height:20px"
+                                    (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
+
+                                <!-- <td><img src="{{details.screenShot}}" width="100px" height="50px"></td> -->
                             <td>
                                 <span [innerHTML]="details.chapterdescription"></span>
                                 <span style="color:#3247D5;
                          " data-toggle="modal" data-target="#exampleModal3" (click)="view(details.comment)">View
-                                    </span>
-                            
+                                </span>
 
-                            <!-- <td>{{details.comment}}</td>  -->
+
+                                <!-- <td>{{details.comment}}</td>  -->
 
                             <td>
-                                <button class=" btn btn-primary editable-table-button btn-xs"
+                                <button class=" btn btn-primary editable-table-button btn-xs btncolor"
                                     (click)="accept(details.id)">Accept</button><br><br>
 
                                 <button class=" btn btn-primary editable-table-button btn-xs btncolor"
@@ -208,7 +211,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-3"  *ngFor="let details of attachmentlist">
+                    <div class="col-lg-3" *ngFor="let details of attachmentlist">
                         <img style="width:100px;height:auto;" src="{{details.attachment}}"><br>
                     </div>
                     <br>
@@ -221,4 +224,3 @@
         </div>
     </div>
 </div>
-

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AmazeSupportService } from '../amaze-support.service';
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-rejetced-tickets',
   templateUrl: './rejetced-tickets.component.html',
@@ -16,7 +17,7 @@ export class RejetcedTicketsComponent implements OnInit {
   applicationNamelist:any;
   count: any;
   search:any;
-
+loader:any;
   ticketList:any;
   companyName:any;
   comment:any;
@@ -178,6 +179,21 @@ export class RejetcedTicketsComponent implements OnInit {
       });
   }
 
-  
+         //Code for Export to excel//
+         fileName = 'Rejected Tickets REPORT.xlsx';
+         exportexcel(): void {
+           this.loader = false;
+           /* table id is passed over here */
+           let element = document.getElementById('downloadapplication');
+           const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+       
+           /* generate workbook and add the worksheet */
+           const wb: XLSX.WorkBook = XLSX.utils.book_new();
+           XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+       
+           /* save to file */
+           XLSX.writeFile(wb, this.fileName);
+           this.loader = false;
+         }
 
 }
