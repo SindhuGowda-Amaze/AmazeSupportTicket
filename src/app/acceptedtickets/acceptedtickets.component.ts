@@ -27,7 +27,7 @@ export class AcceptedticketsComponent implements OnInit {
   ID:any;
   CloseComments:any;
   comment:any;
-
+  companylist: any;
 
   constructor(private AmazeSupportService:AmazeSupportService ) { }
   ngOnInit(): void {
@@ -39,14 +39,12 @@ export class AcceptedticketsComponent implements OnInit {
       debugger
       this.ticketList = data.filter(x=>x.status=='accepted');
       this.stafflistCopy = this.ticketList
-    
     });
-
     this.getCompanylist();
     this.getAppnamelist();
   }
 
-  companylist: any;
+ 
   public getCompanylist() {
 
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
