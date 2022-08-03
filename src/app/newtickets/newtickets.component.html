@@ -90,7 +90,7 @@
                             <th>Priority</th>
                             <th>Screenshots</th>
                             <th>User Comments</th>
-                            <th>Action </th>
+                            <th *ngIf="roleid==1">Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,7 +120,7 @@
 
                                 <!-- <td>{{details.comment}}</td>  -->
 
-                            <td>
+                            <td *ngIf="roleid==1">
                                 <button class=" btn btn-primary editable-table-button btn-xs btncolor"
                                     (click)="accept(details.id)">Accept</button><br><br>
 

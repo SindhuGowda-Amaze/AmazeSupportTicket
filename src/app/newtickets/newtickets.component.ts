@@ -25,12 +25,13 @@ export class NewticketsComponent implements OnInit {
   loader:any;
   startdate:any;
   enddate:any;
-  
+  roleid:any;
   constructor(private AmazeSupportService: AmazeSupportService) { }
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName="0"
     this.issuefrom="0"
+    this.roleid = sessionStorage.getItem('roleid');
     debugger
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
@@ -138,7 +139,7 @@ export class NewticketsComponent implements OnInit {
     this.attachment=details.attachment
   }
 
-  
+
   ID: any;
   public getreject(even: any) {
     this.ID = even

@@ -23,7 +23,7 @@ export class AcceptedticketsComponent implements OnInit {
   applicationName:any;
   applicationNamelist:any;
   companyName:any;
-
+  roleid:any;
   ID:any;
   CloseComments:any;
   comment:any;
@@ -34,6 +34,7 @@ export class AcceptedticketsComponent implements OnInit {
     this.companyName = "0"
     this.applicationName="0"
     this.issuefrom="0"
+    this.roleid = sessionStorage.getItem('roleid');
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
       this.ticketList = data.filter(x=>x.status=='accepted');

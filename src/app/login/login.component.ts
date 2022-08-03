@@ -16,8 +16,10 @@ export class LoginComponent implements OnInit {
   userName:any;
   passWord:any;
   showpassword:any;
+  Asticom:any;
   ngOnInit(): void {
     this.admin="admin"
+    this.Asticom="Asticom"
   
     this.showpassword=0;
   }
@@ -46,6 +48,20 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("roleid", this.roleId);
 
         sessionStorage.setItem("loginName", this.admin);
+        location.href = "#/Newtickets";
+        location.reload()
+      }
+      else {
+        Swal.fire("Incorrect Username or Password")
+      }
+    }
+    if (this.roleId == '2') {
+      let Asticomcopy = this.Asticom.toLowerCase();
+      if (this.userName.toLowerCase().includes(Asticomcopy)  && this.passWord == 'welcome') {
+        sessionStorage.setItem("temp", '1');
+        sessionStorage.setItem("roleid", this.roleId);
+
+        sessionStorage.setItem("loginName", this.Asticom);
         location.href = "#/Newtickets";
         location.reload()
       }

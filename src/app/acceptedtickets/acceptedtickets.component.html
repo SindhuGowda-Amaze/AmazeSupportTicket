@@ -15,7 +15,7 @@
             <div class="col-lg-1">
                 <p class="filter">Filter By</p>
             </div>
-         
+
             <div class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
@@ -39,18 +39,18 @@
             </div>
         </div>
         <br>
-      
-        <div class="row FilterClass" >
+
+        <div class="row FilterClass">
             <div class="col-lg-1"></div>
             <div class="col-lg-3">
-           
+
                 <input class="form-control" id="date" name="date" [(ngModel)]="startdate" type="date"
                     placeholder="Duration">
             </div>
             <div class="col-lg-3">
-       
-                <input class="form-control" id="date" name="date" [(ngModel)]="enddate"
-                    (change)="getenddate($event)" type="date" placeholder="Duration">
+
+                <input class="form-control" id="date" name="date" [(ngModel)]="enddate" (change)="getenddate($event)"
+                    type="date" placeholder="Duration">
             </div>
             <div class="col-lg-3">
                 <select class="form-control" id="issuefrom" name="issuefrom" [(ngModel)]="issuefrom"
@@ -61,7 +61,8 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to Excel</button>
+                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to
+                    Excel</button>
             </div>
         </div>
     </div> <br>
@@ -83,17 +84,16 @@
                             <th>Application Name</th>
                             <th>Employee ID</th>
                             <th>Date</th>
-                            <th>Time</th> 
+                            <th>Time</th>
                             <th>Type Of Application Issue</th>
                             <th>Priority</th>
                             <th>Screenshots</th>
                             <th>User Comments</th>
-                            <th>Action </th>
+                            <th *ngIf="roleid==1">Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
-
                             *ngFor="let details of ticketList |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
                             <td>{{details.issuefrom}}</td>
                             <td>000{{details.id}}</td>
@@ -105,22 +105,24 @@
                             <td>{{details.typeOfApplicationIssues}}</td>
                             <td>{{details.priority}}</td>
                             <!-- <td>{{details.screenShot}}</td> -->
-                            <img  src="assets/Images/image.png" style="width:20px; height:20px" (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
+                            <img src="assets/Images/image.png" style="width:20px; height:20px"
+                                (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
 
                             <td>
                                 <span [innerHTML]="details.chapterdescription"></span>
                                 <span style="color:#3247D5;
                          " data-toggle="modal" data-target="#exampleModal3" (click)="view(details.comment)">View
-                                    </span>
+                                </span>
                             </td>
 
-                             <td>
-                                <button class=" btn btn-primary editable-table-button btn-xs btncolor"  (click)="getaccept(details.id)"  data-toggle="modal"
-                                data-target="#myModal">Close</button>
+                            <td *ngIf="roleid==1">
+                                <button class=" btn btn-primary editable-table-button btn-xs btncolor"
+                                    (click)="getaccept(details.id)" data-toggle="modal"
+                                    data-target="#myModal">Close</button>
 
                                 <!-- <button class=" btn btn-primary editable-table-button btn-xs btncolor">Reject</button> -->
 
-                            </td> 
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -149,10 +151,11 @@
                     <div class="col-lg-2">
 
                         <p>Comments:</p>
- 
+
                     </div>
                     <div class="col-lg-10">
-                        <textarea class="form-control" rows="6" id="CloseComments" name="CloseComments" [(ngModel)]="CloseComments"></textarea>
+                        <textarea class="form-control" rows="6" id="CloseComments" name="CloseComments"
+                            [(ngModel)]="CloseComments"></textarea>
                     </div>
                 </div><br>
                 <p style="text-align: center;"><button class=" btn btn-primary editable-table-button btn-xs btncolor"
@@ -202,8 +205,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-3"  *ngFor="let details of attachmentlist">
-                        <img style="width:100px;height:auto;" src="{{details.attachment}}" (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
+                    <div class="col-lg-3" *ngFor="let details of attachmentlist">
+                        <img style="width:100px;height:auto;" src="{{details.attachment}}"
+                            (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>
@@ -230,7 +234,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img style="width:700px;height:auto;" src="{{attachment}}"   data-toggle="modal" data-target="#exampleModal5"><br>
+                        <img style="width:700px;height:auto;" src="{{attachment}}" data-toggle="modal"
+                            data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>
