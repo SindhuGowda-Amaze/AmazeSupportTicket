@@ -115,8 +115,6 @@ export class AcceptedticketsComponent implements OnInit {
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
             this.ticketList = data.filter(x => x.status == 'accepted' && x.companyname == this.companyName);
-    
-    
           });
         }
       }
@@ -138,15 +136,12 @@ export class AcceptedticketsComponent implements OnInit {
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
             this.ticketList = data.filter(x => x.status == 'accepted' && x.applicationName == this.applicationName);
-    
-    
           });
         }
     
       } 
       view(desc: any) {
         this.comment = desc;
-    
       }
 
       attachmentlist:any;
@@ -162,7 +157,10 @@ export class AcceptedticketsComponent implements OnInit {
         
       }
 
-
+      attachment:any;
+      getattchmentID(details:any){
+        this.attachment=details.attachment
+      }
       public getenddate(event: any) {
         debugger
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
@@ -177,7 +175,7 @@ export class AcceptedticketsComponent implements OnInit {
         debugger
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
-            this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
+            this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'accepted');
           });
       }
 

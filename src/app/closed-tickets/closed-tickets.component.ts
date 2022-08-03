@@ -158,11 +158,14 @@ loader:any;
     debugger
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'closed');
       });
   }
 
-
+  attachment:any;
+  getattchmentID(details:any){
+    this.attachment=details.attachment
+  }
     //Code for Export to excel//
     fileName = 'Closed Tickets REPORT.xlsx';
     exportexcel(): void {

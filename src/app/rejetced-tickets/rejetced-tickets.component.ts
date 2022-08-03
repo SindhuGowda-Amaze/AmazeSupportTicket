@@ -160,6 +160,11 @@ loader:any;
     
   }
 
+  attachment:any;
+  getattchmentID(details:any){
+    this.attachment=details.attachment
+  }
+
 
   public getenddate(event: any) {
     debugger
@@ -175,7 +180,7 @@ loader:any;
     debugger
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom &&  x.status == 'rejected');
       });
   }
 

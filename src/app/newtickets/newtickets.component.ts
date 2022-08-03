@@ -132,6 +132,13 @@ export class NewticketsComponent implements OnInit {
     })
   }
 
+  
+  attachment:any;
+  getattchmentID(details:any){
+    this.attachment=details.attachment
+  }
+
+  
   ID: any;
   public getreject(even: any) {
     this.ID = even
@@ -221,7 +228,7 @@ export class NewticketsComponent implements OnInit {
     debugger
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom);
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'Open');
       });
   }
 

@@ -102,7 +102,7 @@
                             <td>{{details.applicationName}}</td>
                             <td>{{details.staffID}}</td>
                             <td>{{details.role}}</td>
-                            <td>{{details.date|date}}</td>
+                            <td style="white-space: nowrap;">{{details.date|date}}</td>
                             <td>{{details.time}}</td>
                             <td>{{details.typeOfApplicationIssues}}</td>
                             <td>{{details.priority}}</td>
@@ -212,7 +212,33 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3" *ngFor="let details of attachmentlist">
-                        <img style="width:100px;height:auto;" src="{{details.attachment}}"><br>
+                        <img style="width:100px;height:auto;" src="{{details.attachment}}" (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
+                    </div>
+                    <br>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Related Attachments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img style="width:700px;height:auto;" src="{{attachment}}"   data-toggle="modal" data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>
