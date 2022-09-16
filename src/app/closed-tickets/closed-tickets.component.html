@@ -61,7 +61,8 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to Excel</button>
+                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to
+                    Excel</button>
             </div>
         </div>
     </div> <br>
@@ -74,7 +75,7 @@
     <div>
         <div class="row">
             <div class="col-lg-12">
-                <table class="table"  id="downloadapplication">
+                <table class="table" id="downloadapplication">
                     <thead>
                         <tr>
                             <th>Issue From</th>
@@ -88,6 +89,7 @@
                             <th>Priority</th>
                             <th>Screenshots</th>
                             <th>User Comments</th>
+                            <th>Comments</th>
                             <th>Team Comments</th>
                             <!-- <th>Action </th> -->
                         </tr>
@@ -115,8 +117,12 @@
                          " data-toggle="modal" data-target="#exampleModal4"
                                     (click)="viewUserComments(details.comment)">View</span>
                             </td>
+                            <td>
+                                <p>{{details.comment}}</p>
+                               
+                            </td>
 
-                            <td >
+                            <td>
                                 <!-- <span [innerHTML]="details.chapterdescription"></span> -->
                                 <span style="color:#3247D5;
                          " data-toggle="modal" data-target="#exampleModal3"
@@ -124,7 +130,7 @@
                             </td>
 
 
-                           
+
                         </tr>
                     </tbody>
                 </table>
@@ -209,7 +215,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3" *ngFor="let details of attachmentlist">
-                        <img style="width:100px;height:auto;" src="{{details.attachment}}"  (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
+                        <img style="width:100px;height:auto;" src="{{details.attachment}}"
+                            (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>
@@ -235,7 +242,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img style="width:700px;height:auto;" src="{{attachment}}"  data-toggle="modal" data-target="#exampleModal5"><br>
+                        <img style="width:700px;height:auto;" src="{{attachment}}" data-toggle="modal"
+                            data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>

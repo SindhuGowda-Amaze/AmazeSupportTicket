@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AmazeSupportService } from '../amaze-support.service';
-import * as XLSX from 'xlsx';
+import { ExportToCsv } from 'export-to-csv-file';
+
 
 @Component({
   selector: 'app-closed-tickets',
@@ -168,19 +169,73 @@ loader:any;
   }
     //Code for Export to excel//
     fileName = 'Closed Tickets REPORT.xlsx';
-    exportexcel(): void {
-      this.loader = false;
-      /* table id is passed over here */
-      let element = document.getElementById('downloadapplication');
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    // exportexcel(): void {
+    //   this.loader = false;
+    //   /* table id is passed over here */
+    //   let element = document.getElementById('downloadapplication');
+    //   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
   
-      /* generate workbook and add the worksheet */
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //   /* generate workbook and add the worksheet */
+    //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
   
-      /* save to file */
-      XLSX.writeFile(wb, this.fileName);
-      this.loader = false;
+    //   /* save to file */
+    //   XLSX.writeFile(wb, this.fileName);
+    //   this.loader = false;
+    // }
+
+
+    exportexcel() {
+      debugger;
+      var ExportData = [];
+      for (let i = 0; i < this.ticketList.length; i++) {
+        debugger;
+        let singleData = {
+          IssueFrom: String,
+          TicketID: String,
+          CompanyName: String,
+          ApplicationName: String,
+          EmployeeID: String,
+          Date: Date,
+          Time: Date,
+          TypeOfApplicationIssue: String,
+          Priority: String,
+          Comments: String,
+         
+          
+        }
+        singleData.IssueFrom = this.ticketList[i].issuefrom;
+        singleData.TicketID = this.ticketList[i].id;
+        singleData.CompanyName = this.ticketList[i].companyname;
+        singleData.ApplicationName = this.ticketList[i].applicationName;
+        singleData.EmployeeID = this.ticketList[i].staffID;
+        singleData.Date = this.ticketList[i].date;
+        singleData.Time = this.ticketList[i].time;
+        singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues;
+        singleData.Priority = this.ticketList[i].priority;
+        singleData.Comments = this.ticketList[i].comment;
+    
+       
+  
+  
+        ExportData.push(singleData);
+        debugger
+      }
+      const Export_to_excel_options = {
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalSeparator: '.',
+        showLabels: true,
+        showTitle: true,
+        title: 'Closed Tickets REPORT.xlsx',
+        useTextFile: false,
+        useBom: true,
+        useKeysAsHeaders: true,
+        filename: 'Closed Tickets REPORT.xlsx'
+      };
+      const csvExporter = new ExportToCsv(Export_to_excel_options);
+      debugger
+      csvExporter.generateCsv(ExportData);
     }
 
 }

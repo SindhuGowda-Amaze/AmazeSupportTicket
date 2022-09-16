@@ -25,7 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FooterComponent,
     AcceptedticketsComponent,
     RejetcedTicketsComponent,
-    ClosedTicketsComponent
+    ClosedTicketsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
