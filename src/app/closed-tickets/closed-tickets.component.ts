@@ -208,7 +208,7 @@ loader:any;
         singleData.TicketID = this.ticketList[i].id;
         singleData.CompanyName = this.ticketList[i].companyname;
         singleData.ApplicationName = this.ticketList[i].applicationName;
-        singleData.EmployeeID = this.ticketList[i].staffID;
+        singleData.EmployeeID = this.ticketList[i].employeeID;
         singleData.Date = this.ticketList[i].date;
         singleData.Time = this.ticketList[i].time;
         singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues;
