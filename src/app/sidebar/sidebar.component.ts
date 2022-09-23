@@ -51,6 +51,16 @@ export class SidebarComponent implements OnInit {
     localStorage.setItem("clickname", "Closed")
   }
 
+  logactivity() {
+    this.active = 'logactivity';
+    localStorage.setItem("clickname", "Log Activity")
+  }
+
+  exceptionlog() {
+    this.active = 'exceptionlog';
+    localStorage.setItem("clickname", "Exception Log")
+  }
+
  
 }
 

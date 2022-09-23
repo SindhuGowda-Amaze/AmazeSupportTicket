@@ -12,6 +12,7 @@ export class AmazeSupportService {
 
   public host = "https://digioffice.amazeone.co/digiofficeapi";
 
+  public astiapiendpoint = "https://asticom.digiofficeapp.com/AsticomMainAPI";
   url: any;
 
 
@@ -70,5 +71,51 @@ export class AmazeSupportService {
     this.url = this.baseURL + '/Master/UpdateRejectStatusSupportTickets';
     return this.http.post(this.url, data);
   }
+
+  public Getantiforgerytokenforsuperadmin(data: any, url: any) {
+    debugger;
+    // this.url = this.host + "/Master/Verifyotp";
+    this.url = url + '/Announcement/Getantiforgerytoken';
+    return this.http.post(this.url, data);
+  }
+
+  public GetCompanyIDForSuperAdmin(CompanyID: any, url: any) {
+    debugger
+
+    let APIURL = url + "/MobileUser/GetCompanyIDForSuperAdmin?CompanyID=" + CompanyID;
+    //let APIURL = this.basehost + "/MobileUser/GetCompanyIDfortest?CompanyID=" + CompanyID;
+    return this.http.get<any[]>(APIURL);
+  }
+
+  public InsertExceptionLogs(data: any) {
+    debugger;
+    this.url = this.astiapiendpoint + '/Master/InsertExceptionLogs';
+    return this.http.post(this.url, data);
+  }
+
+  public GetExceptionLogs() {
+    return this.http.get<any[]>(
+      this.astiapiendpoint + "/Master/GetExceptionLogs"
+    );
+  }
+
+  public GetLogActivity() {
+    return this.http.get<any[]>(
+      this.astiapiendpoint + "/Master/GetLogActivity"
+    );
+  }
+
+  public GetLogActivitybyurl(apiendpoint: any) {
+    return this.http.get<any[]>(
+      apiendpoint + "/Master/GetLogActivity"
+    );
+  }
+
+public GetExceptionLogsbyurl(apiendpoint: any) {
+    return this.http.get<any[]>(
+      apiendpoint + "/Master/GetExceptionLogs"
+    );
+  }
+
 
 }

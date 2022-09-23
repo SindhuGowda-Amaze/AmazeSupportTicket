@@ -15,6 +15,8 @@ import { ClosedTicketsComponent } from './closed-tickets/closed-tickets.componen
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LogActivityDashComponent } from './log-activity-dash/log-activity-dash.component';
+import { ExceptionLogDashComponent } from './exception-log-dash/exception-log-dash.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { LogActivityDashComponent } from './log-activity-dash/log-activity-dash.
     AcceptedticketsComponent,
     RejetcedTicketsComponent,
     ClosedTicketsComponent,
-    LogActivityDashComponent
+    LogActivityDashComponent,
+    ExceptionLogDashComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

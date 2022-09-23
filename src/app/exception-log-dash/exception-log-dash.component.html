@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-11">
             <br>
-            <p class="headings">Log Activity</p>
+            <p class="headings">Exception Log</p>
         </div>
        
     </div>
@@ -31,7 +31,7 @@
                 <input type="search" class="form-control search" placeholder="Search for Name.." [(ngModel)]="search">
             </div>
             <div class="col-lg-3">
-                <p class="count">Count : {{logactivitylist.length}} </p>
+                <p class="count">Count:{{exceptionloglist.length}} </p>
             </div>
         </div>
         <br>
@@ -61,36 +61,30 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Employee ID</th>
-                            <th>Sign In Date</th>
-                            <th>Sign Out Date</th>
-                            <th>Log In Time</th>
-                            <th>Log Out Time</th>
-                            <th>Punch In IP</th>
-                            <th>Punch Out IP</th>
-                            <th>Sign In Location</th>
-                            <th>Sign Out Location</th>
+                            <th>User ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Page Name</th>
+                            <th>Error Message</th>
                             <th>Login Type</th>
+                            <th>API</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
-                            *ngFor="let details of logactivitylist |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
+                            *ngFor="let details of exceptionloglist |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
                             <td>{{details.id}}</td>
-                            <td>{{details.employeeID}}</td>
-                            <td>{{details.signinDate|date}}</td>
-                            <td>{{details.signoutDate|date}}</td>
-                            <td>{{details.signInTime|date:'HH:mm'}}</td>
-                            <td>{{details.signOutTime|date:'HH:mm'}}</td>
-                            <td>{{details.punchinip}}</td>
-                            <td>{{details.punchoutip}}</td>
-                            <td>{{details.signinLocation}}</td>
-                            <td>{{details.signoutLocation}}</td>
-                            <td>{{details.position}}</td>
+                            <td>{{details.userID}}</td>
+                            <td>{{details.modifiedDate|date}}</td>
+                            <td>{{details.modifiedDate|date:'HH:mm'}}</td>
+                            <td>{{details.pageName}}</td>
+                            <td>{{details.errorMessage}}</td>
+                            <td>{{details.loginType}}</td>
+                            <td>{{details.apI}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <span *ngIf="logactivitylist.length==0">No Data </span>
+                <span *ngIf="exceptionloglist.length==0">No Data </span>
                 <div class="text-right">
                     <br>
                     <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>

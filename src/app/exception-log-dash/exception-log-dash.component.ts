@@ -3,12 +3,13 @@ import Swal from 'sweetalert2';
 import { AmazeSupportService } from '../amaze-support.service';
 import * as XLSX from 'xlsx';
 import { formatDate } from '@angular/common';
+
 @Component({
-  selector: 'app-log-activity-dash',
-  templateUrl: './log-activity-dash.component.html',
-  styleUrls: ['./log-activity-dash.component.css']
+  selector: 'app-exception-log-dash',
+  templateUrl: './exception-log-dash.component.html',
+  styleUrls: ['./exception-log-dash.component.css']
 })
-export class LogActivityDashComponent implements OnInit {
+export class ExceptionLogDashComponent implements OnInit {
 
   term: any;
   p: any = 1;
@@ -27,7 +28,7 @@ export class LogActivityDashComponent implements OnInit {
   staffID: any;
   username: any;
   currentUrl: any;
-  logactivitylist: any;
+  exceptionloglist: any;
   firstDayofcurrentmonth: any;
   todaydate: any;
   filtereddate: any;
@@ -46,15 +47,14 @@ export class LogActivityDashComponent implements OnInit {
     this.todaydate = this.filtereddate;
     this.firstDayofcurrentmonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     this.firstDayofcurrentmonth = formatDate(this.firstDayofcurrentmonth, format, locale);
-    this.GetLogActivity();
+    this.GetExceptionLog();
   }
 
   public getenddate(event: any) {
     debugger
-    this.AmazeSupportService.GetLogActivity().subscribe(data => {
+    this.AmazeSupportService.GetExceptionLogs().subscribe(data => {
       debugger
-      this.logactivitylist = data.filter(x =>  (x.signinDate >= this.startdate && x.signinDate <= this.enddate) ||
-        (x.signoutDate >= this.startdate && x.signoutDate <= this.enddate ));
+      this.exceptionloglist = data.filter(x =>  x.date >= this.startdate && x.date <= this.enddate);
     });
   }
 
@@ -102,12 +102,12 @@ export class LogActivityDashComponent implements OnInit {
     }
 
 
-   
-    this.AmazeSupportService.GetLogActivitybyurl(this.apiurl)
+    
+    this.AmazeSupportService.GetExceptionLogsbyurl(this.apiurl)
       .subscribe({
         next: data => {
           debugger
-          this.logactivitylist = data.filter(x=> x.signinDate==this.todaydate);
+          this.exceptionloglist = data.filter(x=>x.modifiedDate==this.todaydate);
           this.loader = false;
           location.reload;
         }, error: (err) => {
@@ -127,16 +127,16 @@ export class LogActivityDashComponent implements OnInit {
       })
   }
 
-  public GetLogActivity() {
+  public GetExceptionLog() {
     debugger
-    this.AmazeSupportService.GetLogActivity()
+    this.AmazeSupportService.GetExceptionLogs()
       .subscribe({
         next: data => {
           debugger
-          this.logactivitylist = data.filter(x=> x.signinDate==this.todaydate);
+          this.exceptionloglist = data.filter(x=>x.modifiedDate==this.todaydate);
           this.loader = false;
         }, error: (err) => {
-          Swal.fire('Issue in Getting Log Activity');
+          Swal.fire('Issue in Getting Exception Logs');
           // Insert error in Db Here//
           var obj = {
             'PageName': this.currentUrl,
