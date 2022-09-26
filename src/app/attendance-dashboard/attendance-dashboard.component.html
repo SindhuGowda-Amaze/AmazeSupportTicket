@@ -1,0 +1,176 @@
+<!-- <app-loader *ngIf="loader"></app-loader> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-11">
+                    <br>
+                    <p class="headings">Company Attendance Details</p>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="row leavereq">
+                    <div class="col-lg-3">
+                        <select class="form-control" id="companyid" name="companyid" [(ngModel)]="companyid"
+                            (change)="getCompanyDetails($event)">
+                            <option value="1001">Asticom Main</option>
+                            <option value="1002">Asticom ABSI (ABSI)</option>
+                            <option value="1005">Asticom FINSI</option>
+                            <option value="1003">Asticom BRAD</option>
+                            <option value="1004">Asticom HCX</option>
+                            <option value="1006">Asticom HQ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                            <input type="date" id="startdate" name="startdate" [(ngModel)]="startdate"
+                                class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                            <input type="date" id="enddate" name="enddate" [(ngModel)]="enddate"
+                                (change)="getenddate($event)" class="form-control">
+                    </div>
+                    <!-- <div class="col-lg-2">
+                        <p>Position -->
+                    <!-- <br> <select class="form-control" id="RoleType" name="RoleType" [(ngModel)]="RoleType"
+                                (change)="FilterRoleType()">
+                                <option value="">Select Position</option>
+                                <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                                </option>
+                            </select> -->
+
+                    <!-- <ng-multiselect-dropdown [placeholder]="'Select Position'" [settings]="roledropdownSettings"
+                                [data]="dropdownRoleList" [(ngModel)]="roleselectedItems"
+                                (onSelect)="roleonItemSelect($event)">
+                            </ng-multiselect-dropdown> -->
+                    <!-- </p>
+                    </div> -->
+                    <!-- <div class="col-md-2">
+                        <p>Staff -->
+                    <!-- <ng-multiselect-dropdown [placeholder]="'Select Staff'" [settings]="dropdownSettings"
+                                [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)">
+                            </ng-multiselect-dropdown> -->
+                    <!-- </div> -->
+                    <div class="col-lg-2" style="font-family: 'Poppins';">
+                      
+                            <input type="search" class="form-control" [(ngModel)]="term" placeholder="Search for Staff"
+                                (ngModelChange)="filterTeamAttendance()">
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <p class="active">Count : {{(attendancelist)?.length}}</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row FilterClass">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="butn-sadow1" type="button" (click)="exportexcel1()">Download Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br />
+            <br />
+
+            <div class="row listscroll">
+                <div class="col-md-12">
+                    <table class="table"
+                        *ngIf="(attendancelist|filter:term|paginate: { itemsPerPage: count1, currentPage: p})?.length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Staff Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Sign In Type</th>
+                                <th>Expected In Time</th>
+                                <th>Punch In Time</th>
+                                <th>Punch In Location/IP Address</th>
+                                <th>Sign Out Type</th>
+                                <th>Expected Out Time</th>
+                                <th>Punch Out Time</th>
+                                <th>Punch Out Location/IP Address</th>
+                                <th>Work Hours(HH:MM) </th>
+                                <th>UnderTime </th>
+                                <th>Late </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let attendance of attendancelist|filter:term | paginate: { itemsPerPage: count1, currentPage: p }|filter:term">
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.signinDate|date}}
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.staffname}}
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.role}}
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.department_name}}
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.signInType}}</td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    <p *ngIf="attendance.expectedIn!=null"> {{attendance.expectedIn|date:'HH:mm'}}</p>
+                                    <p *ngIf="attendance.expectedIn==null">NA</p>
+
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.signinDate|date:'HH:mm'}}</td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    <p *ngIf="attendance.signInType=='Web Application'">{{attendance.punchinip}}</p>
+                                    <p *ngIf="attendance.signInType!='Web Application'">{{attendance.signinLocation}}
+                                    </p>
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    <p *ngIf="attendance.signOutTypeID==2">Web Application</p>
+                                    <p *ngIf="attendance.signOutTypeID==1">Mobile</p>
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    <p *ngIf="attendance.expectedOut!=null"> {{attendance.expectedOut|date:'HH:mm'}}</p>
+                                    <p *ngIf="attendance.expectedOut==null">NA</p>
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.signoutDate|date:'HH:mm'}}</td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'}">
+                                    <p *ngIf="attendance.signOutTypeID==2">{{attendance.punchoutip}}</p>
+                                    <p *ngIf="attendance.signOutTypeID==1">{{attendance.signoutLocation}}
+                                    </p>
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.hr1|date:'HH:mm'}}</td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.undertime}}
+                                </td>
+                                <td [ngClass]="{'bgred':attendance.undertime=='Yes'||attendance.latepunchin=='Yes'  }">
+                                    {{attendance.latepunchin}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-right">
+                    <br>
+                    <pagination-controls (pageChange)="p = $event" class="poppinns"></pagination-controls>
+                </div>
+                <ng-template #noResults>
+                    <p class="NoResultShow"> No Data found </p>
+                </ng-template>
+                <br>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>

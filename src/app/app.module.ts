@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +18,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { LogActivityDashComponent } from './log-activity-dash/log-activity-dash.component';
 import { ExceptionLogDashComponent } from './exception-log-dash/exception-log-dash.component';
 import { LoaderComponent } from './loader/loader.component';
+import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
+import { AttendanceDashboardComponent } from './attendance-dashboard/attendance-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -31,18 +34,29 @@ import { LoaderComponent } from './loader/loader.component';
     ClosedTicketsComponent,
     LogActivityDashComponent,
     ExceptionLogDashComponent,
-    LoaderComponent
+    LoaderComponent,
+    StaffDashboardComponent,
+    AttendanceDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CommonModule,
     HttpClientModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  exports: [
+    Ng2SearchPipeModule,
+    LoaderComponent,
+    NgxPaginationModule,
+    FormsModule
+  ],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

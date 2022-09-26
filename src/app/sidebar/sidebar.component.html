@@ -62,4 +62,22 @@
             &nbsp;
             <span [ngClass]="active == 'exceptionlog' ? 'Active1' : 'Active3'"> Exception Log </span>
         </a>
+
+        <a routerLink="/StaffDashboard" class="tablinks" (click)="highlight($event)" (click)="StaffDashboard()">
+            <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                [ngClass]="active == 'StaffDashboard' ? 'Active1' : 'Active2'" />
+            <img [ngClass]="active != 'StaffDashboard' ? 'Active1' : 'Active2'"
+                src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+            &nbsp;
+            <span [ngClass]="active == 'StaffDashboard' ? 'Active1' : 'Active3'">STAFF </span>
+        </a>
+
+        <a routerLink="/AttendanceDashboard" class="tablinks" (click)="highlight($event)" (click)="AttendanceDashboard()">
+            <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                [ngClass]="active == 'AttendanceDashboard' ? 'Active1' : 'Active2'" />
+            <img [ngClass]="active != 'AttendanceDashboard' ? 'Active1' : 'Active2'"
+                src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+            &nbsp;
+            <span [ngClass]="active == 'AttendanceDashboard' ? 'Active1' : 'Active3'">Attendance Details</span>
+        </a>
     </div>

@@ -56,9 +56,19 @@ export class SidebarComponent implements OnInit {
     localStorage.setItem("clickname", "Log Activity")
   }
 
+  StaffDashboard() {
+    this.active = 'StaffDashboard';
+    localStorage.setItem("clickname", "Staff Dashboard")
+  }
+
   exceptionlog() {
     this.active = 'exceptionlog';
     localStorage.setItem("clickname", "Exception Log")
+  }
+
+  AttendanceDashboard() {
+    this.active = 'AttendanceDashboard';
+    localStorage.setItem("clickname", "Attendance Dashboard")
   }
 
  

@@ -1,0 +1,212 @@
+<!-- <app-loader *ngIf="loader"></app-loader> -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-11">
+                <br>
+                <p class="headings">Staff Dashboard</p>
+            </div>
+           
+        </div>
+        <br>
+        <!-- <div class="row">
+            <div class="col-lg-11">
+                <p class="Heading">Staff Dashboard</p>
+            </div>
+        </div> -->
+        <div class="row FilterClass">
+            <div class="col-lg-12">
+                <div class="card">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <p>Filter By</p>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control" id="companyid" name="companyid" [(ngModel)]="companyid"
+                                (change)="getCompanyDetails($event)">
+                                <option value="1001">Asticom Main</option>
+                                <option value="1002">Asticom ABSI (ABSI)</option>
+                                <option value="1005">Asticom FINSI</option>
+                                <option value="1003">Asticom BRAD</option>
+                                <option value="1004">Asticom HCX</option>
+                                <option value="1006">Asticom HQ</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control" id="Department" name="Department" [(ngModel)]="Department"
+                                (change)="getDepartment()">
+                                <option value="0">Select Department</option>
+                                <option value="{{item.id}}" *ngFor="let item of Departmentlist">
+                                    {{item.department_name}}
+                                </option>
+                            </select>
+                            <!-- <ng-multiselect-dropdown [placeholder]="'Select Department'"
+                                [settings]="deptdropdownSettings" [data]="dropdownDeptList"
+                                [(ngModel)]="deptselectedItems" (onSelect)="deptonItemSelect($event)">
+                            </ng-multiselect-dropdown> -->
+                        </div>
+                        <!-- <div class="col-lg-2">
+
+                            <select class="form-control" id="level" name="level" [(ngModel)]="level"
+                                placeholder="Select Level" (change)="geLevel()">
+                                <option value="0">Select Level</option>
+                                <option value="{{item.id}}" *ngFor="let item of levellist">
+                                    {{item.short}}
+                                </option>
+                            </select>
+
+                        </div> -->
+                        <div class="col-lg-2">
+                            <select class="form-control" id="RoleType" name="RoleType" (change)='getRoleType()'
+                                [(ngModel)]="RoleType">
+                                <option value="0">Select Position</option>
+                                <option *ngFor="let item of RoleTypeList" value="{{item.id}}">{{item.short}}
+                                </option>
+                            </select>
+
+                            <!-- <ng-multiselect-dropdown [placeholder]="'Select Position'" [settings]="roledropdownSettings"
+                                [data]="dropdownRoleList" [(ngModel)]="roleselectedItems"
+                                (onSelect)="roleonItemSelect($event)">
+                            </ng-multiselect-dropdown> -->
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-1">
+                        </div>
+                        <div class="col-lg-3" style="font-family: 'Poppins';">
+                            <input class="form-control" type="search" [(ngModel)]="term" (ngModelChange)="Filterstaff()"
+                                placeholder="Search for Staff">
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div><br>
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="tab-slider--container" [ngSwitch]="viewMode"> -->
+            <!-- <div *ngSwitchCase="'tab1'" id="tab1"> -->
+            <!-- <div class="col-md-8">
+                        <p class="show3res">SHOWING <span>{{(stafflist | filter:term)?.length}}
+                            </span>RESULTS</p>
+                    </div>
+                    <br> -->
+            <div class="col-md-12">
+                <table class="table" id="lvs"
+                    *ngIf="(stafflist | filter:term |paginate: { itemsPerPage: count1, currentPage: p})?.length > 0; else noResults">
+                    <thead>
+                        <tr>
+                            <th>Employee Id</th>
+                            <th>Employee Name</th>
+                            <th>Last Name</th>
+                            <th>Department</th>
+                            <th>Gender</th>
+                            <th>Position</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Date Of Joining</th>
+                            <th>Manager</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of stafflist|paginate: { itemsPerPage: count1, currentPage: p}">
+
+                            <td>{{item.employeID}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.last_Name}}</td>
+                            <td>{{item.department_name}}</td>
+                            <td>{{item.gender}}</td>
+                            <td>{{item.role}}</td>
+                            <td>{{item.mobile}}</td>
+                            <td>{{item.emailID}}</td>
+                            <td>{{item.joiningDate|date}}</td>
+                            <td>
+                                <p *ngIf="item.manager==null">
+                                    NA
+                                </p>
+                                <p *ngIf="item.manager!=null">
+                                    {{item.manager}}
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noResults>
+                <div class="card">
+                    <p class="NoResultShow"> No results found !! </p>
+                </div>
+            </ng-template>
+            <div class="text-right">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <!-- </div> -->
+            <!-- <div *ngSwitchCase="'tab2'" id="tab2">
+                    <div class="col-md-8">
+                        <p class="show3res">SHOWING <span>{{(stafflist1 | filter:term)?.length}}
+                            </span>RESULTS</p>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <table class="table" id="lvs"
+                            *ngIf="(stafflist | filter:term |paginate: { itemsPerPage: count1, currentPage: p})?.length > 0; else noResults">
+                            <thead>
+                                <tr>
+                                    <th>Employee Id</th>
+                                    <th>Employee Name</th>
+                                    <th>Department</th>
+                                    <th>Gender</th>
+                                    <th>Position</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Date Of Joining</th>
+                                    <th>Manager</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of stafflist1|paginate: { itemsPerPage: count1, currentPage: p}">
+
+                                    <td>{{item.employeID}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.department_name}}</td>
+                                    <td>{{item.gender}}</td>
+                                    <td>{{item.role}}</td>
+                                    <td>{{item.mobile}}</td>
+                                    <td>{{item.emailID}}</td>
+                                    <td>{{item.joiningDate|date}}</td>
+                                    <td>
+                                        <p *ngIf="item.manager==null">
+                                            NA
+                                        </p>
+                                        <p *ngIf="item.manager!=null">
+                                            {{item.manager}}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ng-template #noResults>
+                        <div class="card">
+                            <p class="NoResultShow"> No results found !! </p>
+                        </div>
+                    </ng-template>
+                    <div class="text-right">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div> -->
+            <!-- </div> -->
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />

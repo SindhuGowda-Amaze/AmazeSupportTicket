@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AcceptedticketsComponent } from './acceptedtickets/acceptedtickets.component';
+import { AttendanceDashboardComponent } from './attendance-dashboard/attendance-dashboard.component';
 import { ClosedTicketsComponent } from './closed-tickets/closed-tickets.component';
 import { ExceptionLogDashComponent } from './exception-log-dash/exception-log-dash.component';
 import { FooterComponent } from './footer/footer.component';
@@ -10,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { NewticketsComponent } from './newtickets/newtickets.component';
 import { RejetcedTicketsComponent } from './rejetced-tickets/rejetced-tickets.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'ClosedTickets', component: ClosedTicketsComponent },
   { path: 'LogActivityDash', component: LogActivityDashComponent },
   { path: 'ExceptionLogDash', component: ExceptionLogDashComponent },
+  { path: 'StaffDashboard', component: StaffDashboardComponent },
+  { path: 'AttendanceDashboard', component: AttendanceDashboardComponent },
 ];
 
 @NgModule({
