@@ -6,13 +6,25 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class AmazeSupportService {
 
   // public baseURL1 = "http://localhost:1807/";
-  public baseURL1 = "https://support.amazeone.co/SupportAPI/";
+  // public baseURL1 = "https://support.amazeone.co/SupportAPI/";
 
-  public baseURL = "https://asticom.digiofficeapp.com/SupportAPI";
+  // public baseURL = "https://asticom.digiofficeapp.com/SupportAPI";
 
-  public host = "https://digioffice.amazeone.co/digiofficeapi";
+  // public host = "https://digioffice.amazeone.co/digiofficeapi";
 
-  public astiapiendpoint = "https://asticom.digiofficeapp.com/AsticomMainAPI";
+  // public astiapiendpoint = "https://asticom.digiofficeapp.com/AsticomMainAPI";
+
+  // public astiapiendpoint1 = sessionStorage.getItem('digiofficeapiurl');
+
+
+
+
+
+  public baseURL = "https://ali.digiofficeapp.com/AliSupportAPI";
+
+  public host = "https://ali.digiofficeapp.com/digiofficeapi";
+
+  public astiapiendpoint = "https://ali.digiofficeapp.com/ALIAPI";
 
   public astiapiendpoint1 = sessionStorage.getItem('digiofficeapiurl');
   url: any;
