@@ -200,7 +200,7 @@ loader:any;
           Time: Date,
           TypeOfApplicationIssue: String,
           Priority: String,
-          Comments: String,
+          // Comments: String,
          
           
         }
@@ -213,7 +213,7 @@ loader:any;
         singleData.Time = this.ticketList[i].time;
         singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues;
         singleData.Priority = this.ticketList[i].priority;
-        singleData.Comments = this.ticketList[i].comment;
+        // singleData.Comments = this.ticketList[i].comment;
     
        
   

@@ -209,7 +209,7 @@ export class RejetcedTicketsComponent implements OnInit {
         Time: String,
         TypeOfApplicationIssue: String,
         Priority: String,
-        Comment : String
+        // Comment : String
       }
      
       singleData.IssueFrom = this.ticketList[i].issuefrom;
@@ -223,7 +223,7 @@ export class RejetcedTicketsComponent implements OnInit {
       singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues
       singleData.Priority = this.ticketList[i].priority;
       singleData.Date = this.ticketList[i].date;
-      singleData.Comment = this.ticketList[i].comment;
+      // singleData.Comment = this.ticketList[i].comment;
 
 
       ExportData.push(singleData);
