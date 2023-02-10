@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AmazeSupportService } from '../amaze-support.service';
 import * as XLSX from 'xlsx';
+import { ExportToCsv } from 'export-to-csv-file';
 @Component({
   selector: 'app-acceptedtickets',
   templateUrl: './acceptedtickets.component.html',
@@ -179,19 +180,61 @@ export class AcceptedticketsComponent implements OnInit {
       }
 
        //Code for Export to excel//
-  fileName = 'Accepted Tickets REPORT.xlsx';
-  exportexcel(): void {
-    this.loader = false;
-    /* table id is passed over here */
-    let element = document.getElementById('downloadapplication');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, this.fileName);
-    this.loader = false;
-  }
+       undefined: any;
+       sequenceNumber1: any
+       attendancelist: any
+       public exportexcel() {
+         debugger
+         var ExportData = [];
+         this.sequenceNumber1 = 0;
+         this.undefined = 'NA'
+         for (let i = 0; i < this.ticketList.length; i++) {
+           debugger;
+           this.sequenceNumber1 = i + 1;
+           let singleData = {
+             IssueFrom: String,
+             Id: String,
+             CompanyName: String,
+             ApplicationName: String,
+             EmployeeID: String,
+             Role: String,
+             Date: String,
+             Time: String,
+             TypeOfApplicationIssue: String,
+             Priority: String,
+           }
+          
+           singleData.IssueFrom = this.ticketList[i].issuefrom;
+           singleData.Id = this.ticketList[i].id;
+           singleData.CompanyName = this.ticketList[i].companyname;
+           singleData.ApplicationName = this.ticketList[i].applicationName;
+           singleData.EmployeeID = this.ticketList[i].staffID
+           singleData.Role = this.ticketList[i].role;
+           singleData.Date = this.ticketList[i].date;
+           singleData.Time = this.ticketList[i].time;
+           singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues
+           singleData.Priority = this.ticketList[i].priority;
+           singleData.Date = this.ticketList[i].date;
+     
+     
+           ExportData.push(singleData);
+           debugger
+         }
+         const Export_to_excel_options = {
+           fieldSeparator: ',',
+           quoteStrings: '"',
+           decimalSeparator: '.',
+           showLabels: true,
+           showTitle: true,
+           title: 'Accept REPORT.xlsx',
+           useTextFile: false,
+           useBom: true,
+           useKeysAsHeaders: true,
+           filename: 'EMPLOYEE ATTEDANCE REPORT'
+         };
+         const csvExporter = new ExportToCsv(Export_to_excel_options);
+         debugger
+         csvExporter.generateCsv(ExportData);
+     
+       }
 }
