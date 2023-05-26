@@ -16,7 +16,7 @@
                 <p class="filter">Filter By</p>
             </div>
 
-            <div class="col-lg-3">
+            <div  *ngIf="roleid!=3" class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
                     <option value="0">Select Company Name</option>
@@ -25,7 +25,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-lg-3">
+            <div  *ngIf="roleid !=3" class="col-lg-3">
                 <select class="form-control" id="applicationName" name="applicationName" [(ngModel)]="applicationName"
                     (change)="GetapplicationName($event)" (change)="GetFilteredapplicationName()">
                     <option value="0">Select Application Name</option>
@@ -101,7 +101,7 @@
                             <td>000{{details.id}}</td>
                             <td>{{details.companyname}}</td>
                             <td>{{details.applicationName}}</td>
-                            <td>{{details.employeeID}}</td>
+                            <td>{{details.staffID}}</td>
                             <td style="white-space: nowrap;">{{details.date|date}}</td>
                             <td>{{details.time}}</td>
                             <td>{{details.typeOfApplicationIssues}}</td>
@@ -111,22 +111,26 @@
 
                             <!-- <td>{{details.screenShot}}</td> -->
 
-                            <td>
+                            <!-- <td>
 
                                 <span style="color:#3247D5;
                          " data-toggle="modal" data-target="#exampleModal4"
                                     (click)="viewUserComments(details.comment)">View</span>
-                            </td>
-                            <!-- <td>
-                                <p>{{details.comment}}</p>
-                               
                             </td> -->
 
                             <td>
-                                <!-- <span [innerHTML]="details.chapterdescription"></span> -->
+                                <p>{{details.comment}}</p>
+                               
+                            </td>
+
+                            <!-- <td>
+                                 <span [innerHTML]="details.chapterdescription"></span> 
                                 <span style="color:#3247D5;
                          " data-toggle="modal" data-target="#exampleModal3"
                                     (click)="view(details.closeComments)">View</span>
+                            </td> -->
+                            <td>
+                                <p>{{details.closeComments}}</p>
                             </td>
 
 

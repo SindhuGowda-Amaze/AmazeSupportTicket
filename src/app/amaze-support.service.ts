@@ -70,5 +70,25 @@ export class AmazeSupportService {
     this.url = this.baseURL + '/Master/UpdateRejectStatusSupportTickets';
     return this.http.post(this.url, data);
   }
+  public GetActive_Employee_Fetech_Details() {
+
+    return this.http.get<any[]>(this.baseURL + "/Master/GetActive_Employee_Fetech_Details");
+  }
+  public GetAPI_fetch_Details_All() {
+
+    return this.http.get<any[]>(this.baseURL + "/Master/GetAPI_fetch_Details_All");
+  }
+  public GetDelete_Inactive_Employee_fetch_Details() {
+
+    return this.http.get<any[]>(this.baseURL + "/Master/GetDelete_Inactive_Employee_fetch_Details");
+  }
+  public GetInactive_Employee_fetch_Details() {
+
+    return this.http.get<any[]>(this.baseURL + "/Master/GetInactive_Employee_fetch_Details");
+  }
+  public GetWarehouse_fetch_Details() {
+
+    return this.http.get<any[]>(this.baseURL + "/Master/GetWarehouse_fetch_Details");
+  }
 
 }

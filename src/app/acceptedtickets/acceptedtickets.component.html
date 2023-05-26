@@ -16,7 +16,7 @@
                 <p class="filter">Filter By</p>
             </div>
 
-            <div class="col-lg-3">
+            <div *ngIf="roleid !=3" class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
                     <option value="0">Select Company Name</option>
@@ -25,7 +25,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-lg-3">
+            <div *ngIf="roleid !=3" class="col-lg-3">
                 <select class="form-control" id="applicationName" name="applicationName" [(ngModel)]="applicationName"
                     (change)="GetapplicationName($event)" (change)="GetFilteredapplicationName()">
                     <option value="0">Select Application Name</option>
@@ -89,7 +89,7 @@
                             <th>Priority</th>
                             <th>Screenshots</th>
                             <th>User Comments</th>
-                            <th *ngIf="roleid==1">Action </th>
+                            <th *ngIf="roleid==1 || roleid==3">Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,7 +115,7 @@
                                 </span>
                             </td>
 
-                            <td *ngIf="roleid==1">
+                            <td *ngIf="roleid==1 || roleid==3">
                                 <button class=" btn btn-primary editable-table-button btn-xs btncolor"
                                     (click)="getaccept(details.id)" data-toggle="modal"
                                     data-target="#myModal">Close</button>

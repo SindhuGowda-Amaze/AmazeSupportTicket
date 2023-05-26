@@ -24,6 +24,15 @@
                 &nbsp;
                 <span [ngClass]="active == 'accepted' ? 'Active1' : 'Active3'"> ACCEPTED </span>
             </a>
+
+            <a routerLink="/AssignTickets" class="tablinks" (click)="highlight($event)" (click)="assign()">
+                <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                    [ngClass]="active == 'assign' ? 'Active1' : 'Active2'" />
+                <img [ngClass]="active != 'assign' ? 'Active1' : 'Active2'"
+                    src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+                &nbsp;
+                <span [ngClass]="active == 'assign' ? 'Active1' : 'Active3'"> Assigned </span>
+            </a>
             <a routerLink="/RejetcedTickets" class="tablinks" (click)="highlight($event)" (click)="rejected()">
                 <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
                     [ngClass]="active == 'rejected' ? 'Active1' : 'Active2'" />
@@ -41,5 +50,20 @@
                 &nbsp;
                 <span [ngClass]="active == 'closed' ? 'Active1' : 'Active3'"> CLOSED </span>
             </a>
+            
         </div>
+        <a *ngIf="roleid!=3" routerLink="/ApiDetails" class="tablinks" (click)="highlight($event)" (click)="APIDetails1()">
+            <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                [ngClass]="active == 'APIDetails1' ? 'Active1' : 'Active2'" />
+            <img [ngClass]="active != 'APIDetails1' ? 'Active1' : 'Active2'"
+                src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+            &nbsp;
+            <span [ngClass]="active == 'APIDetails1' ? 'Active1' : 'Active3'"> API FETCH </span>
+        </a>
+
+
+       
+
+
+
     </div>

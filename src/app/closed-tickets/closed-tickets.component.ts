@@ -26,51 +26,102 @@ export class ClosedTicketsComponent implements OnInit {
   applicationNamelist:any;
   companyName:any;
 loader:any;
+roleid:any
 
   constructor(private AmazeSupportService:AmazeSupportService ) { }
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName="0"
     this.issuefrom="0"
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x=>x.status=='closed');
-      this.stafflistCopy = this.ticketList
+    this.roleid = sessionStorage.getItem('roleid');
+    // this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+    //   debugger
+    //   this.ticketList = data.filter(x=>x.status=='closed');
+    //   this.stafflistCopy = this.ticketList
+    //   this.roleid = sessionStorage.getItem('roleid');
     
-    });
+    // });
+    if (this.roleid == 3) {
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'closed' && x.applicationName=='R&R');
+        this.stafflistCopy = this.ticketList
+
+      });
+
+    } else {
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'closed');
+        this.stafflistCopy = this.ticketList
+
+      });
+    }
     this.getCompanylist();
     this.getAppnamelist();
   }
 
   companylist: any;
   public getCompanylist() {
-
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.status == 'closed');
-
-      const key = 'companyname';
-
-      this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-
-      console.log(this.companylist);
-
-    });
+    if(this.roleid==3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        let temp: any = data.filter(x => x.status == 'closed' && x.applicationName=='R&R');
+  
+        const key = 'companyname';
+  
+        this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+  
+        console.log(this.companylist);
+  
+      });
+    }else{
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        let temp: any = data.filter(x => x.status == 'closed');
+  
+        const key = 'companyname';
+  
+        this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+  
+        console.log(this.companylist);
+  
+      });
+    }
+  
   }
   public getAppnamelist() {
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.status == 'closed');
-
-      const key = 'applicationName';
-
-      this.applicationNamelist = [...new Map(temp.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-
-      console.log(this.applicationNamelist);
-
-    });
+    if(this.roleid==3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        let temp: any = data.filter(x => x.status == 'closed' && x.applicationName=='R&R');
+  
+        const key = 'applicationName';
+  
+        this.applicationNamelist = [...new Map(temp.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+  
+        console.log(this.applicationNamelist);
+  
+      });
+    }
+    else{
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        let temp: any = data.filter(x => x.status == 'closed');
+  
+        const key = 'applicationName';
+  
+        this.applicationNamelist = [...new Map(temp.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+  
+        console.log(this.applicationNamelist);
+  
+      });
+    }
+    
   }
 
 
@@ -147,20 +198,38 @@ loader:any;
 
   public getenddate(event: any) {
     debugger
+    if(this.roleid==3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'closed' && x.applicationName=='R&R' &&  x.date>=this.startdate && x.date<=this.enddate);
+      });
+    }
+    else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
         this.ticketList = data.filter(x => x.status == 'closed' && x.date>=this.startdate && x.date<=this.enddate);
       });
+    }
+      
   }
 
   public GetFilteredissuefrom(event: any) {
     this.issuefrom=event.target.value
 
     debugger
+    if(this.roleid == 3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'closed' && x.applicationName=='R&R');
+      });
+    }
+    else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
         this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'closed');
       });
+    }
+      
   }
 
   attachment:any;
@@ -200,7 +269,8 @@ loader:any;
           Time: Date,
           TypeOfApplicationIssue: String,
           Priority: String,
-          // Comments: String,
+           Comments: String,
+           CloseComments : String
          
           
         }
@@ -208,12 +278,13 @@ loader:any;
         singleData.TicketID = this.ticketList[i].id;
         singleData.CompanyName = this.ticketList[i].companyname;
         singleData.ApplicationName = this.ticketList[i].applicationName;
-        singleData.EmployeeID = this.ticketList[i].employeeID;
+        singleData.EmployeeID = this.ticketList[i].staffID;
         singleData.Date = this.ticketList[i].date;
         singleData.Time = this.ticketList[i].time;
         singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues;
         singleData.Priority = this.ticketList[i].priority;
-        // singleData.Comments = this.ticketList[i].comment;
+       singleData.Comments = this.ticketList[i].comment;
+       singleData.CloseComments = this.ticketList[i].closeComments;
     
        
   

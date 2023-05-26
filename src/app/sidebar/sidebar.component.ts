@@ -40,6 +40,11 @@ export class SidebarComponent implements OnInit {
     localStorage.setItem("clickname", "Accepted")
   }
 
+  assign() {
+    this.active = 'assign';
+    localStorage.setItem("clickname", "Assign")
+  }
+
   rejected() {
     this.active = 'rejected';
     localStorage.setItem("clickname", "Rejected")
@@ -49,6 +54,18 @@ export class SidebarComponent implements OnInit {
   closed() {
     this.active = 'closed';
     localStorage.setItem("clickname", "Closed")
+  }
+
+
+  APIDetails() {
+    this.active = 'APIDetails';
+    localStorage.setItem("clickname", "API Details")
+  }
+
+
+  APIDetails1() {
+    this.active = 'APIDetails1';
+    localStorage.setItem("clickname", "APIDetails1")
   }
 
  

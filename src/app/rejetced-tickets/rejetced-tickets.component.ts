@@ -25,36 +25,73 @@ export class RejetcedTicketsComponent implements OnInit {
   startdate: any;
   enddate: any;
   issuefrom: any;
+  roleid: any
   constructor(private AmazeSupportService: AmazeSupportService) { }
   ngOnInit(): void {
     this.companyName = "0"
     this.applicationName = "0"
     this.issuefrom = "0"
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x => x.status == 'rejected');
-      this.stafflistCopy = this.ticketList
+    this.roleid = sessionStorage.getItem('roleid');
+    // this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+    //   debugger
+    //   this.ticketList = data.filter(x => x.status == 'rejected');
+    //   this.stafflistCopy = this.ticketList
+    //   this.roleid = sessionStorage.getItem('roleid');
 
-    });
+    // });
+    if (this.roleid == 3) {
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'rejected' && x.applicationName=='R&R');
+        this.stafflistCopy = this.ticketList
+
+      });
+
+    } else {
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'rejected');
+        this.stafflistCopy = this.ticketList
+
+      });
+    }
 
     this.getCompanylist();
     this.getAppnamelist();
   }
   companylist: any;
   public getCompanylist() {
+    if(this.roleid==3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        let temp: any = data.filter(x => x.status == 'rejected' && x.applicationName=='R&R');
+  
+        const key = 'companyname';
+  
+        this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+  
+        console.log(this.companylist);
+  
+      });
+    }
+    else{
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        let temp: any = data.filter(x => x.status == 'rejected');
+  
+        const key = 'companyname';
+  
+        this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
+          [item[key], item])).values()];
+  
+        console.log(this.companylist);
+  
+      });
 
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.status == 'rejected');
+    }
 
-      const key = 'companyname';
-
-      this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
-
-      console.log(this.companylist);
-
-    });
+   
   }
   public getAppnamelist() {
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
@@ -169,20 +206,37 @@ export class RejetcedTicketsComponent implements OnInit {
 
   public getenddate(event: any) {
     debugger
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x => x.status == 'rejected' && x.date >= this.startdate && x.date <= this.enddate);
-    });
+    if(this.roleid==3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'rejected' && x.applicationName=='R&R' && x.date >= this.startdate && x.date <= this.enddate);
+      });
+    }else{
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'rejected' && x.date >= this.startdate && x.date <= this.enddate);
+      });
+    }
+   
   }
 
   public GetFilteredissuefrom(event: any) {
     this.issuefrom = event.target.value
 
     debugger
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'rejected');
-    });
+    if(this.roleid==3){
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'rejected' && x.applicationName=='R&R');
+      });
+    }
+    else{
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'rejected');
+      });
+    }
+    
   }
 
   //Code for Export to excel//

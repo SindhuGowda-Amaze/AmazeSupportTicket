@@ -3,12 +3,13 @@ import Swal from 'sweetalert2';
 import { AmazeSupportService } from '../amaze-support.service';
 import * as XLSX from 'xlsx';
 import { ExportToCsv } from 'export-to-csv-file';
+
 @Component({
-  selector: 'app-acceptedtickets',
-  templateUrl: './acceptedtickets.component.html',
-  styleUrls: ['./acceptedtickets.component.css']
+  selector: 'app-assign-tickets',
+  templateUrl: './assign-tickets.component.html',
+  styleUrls: ['./assign-tickets.component.css']
 })
-export class AcceptedticketsComponent implements OnInit {
+export class AssignTicketsComponent implements OnInit {
 
   term: any;
   p: any = 1;
@@ -36,16 +37,10 @@ export class AcceptedticketsComponent implements OnInit {
     this.applicationName="0"
     this.issuefrom="0"
     this.roleid = sessionStorage.getItem('roleid');
-    // this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-    //   debugger
-    //   this.ticketList = data.filter(x=>x.status=='accepted');
-    //   this.stafflistCopy = this.ticketList
-    // });
-    
     if (this.roleid == 3) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'accepted' && x.applicationName=='R&R');
+        this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice' && x.applicationName=='R&R');
         this.stafflistCopy = this.ticketList
 
       });
@@ -53,12 +48,11 @@ export class AcceptedticketsComponent implements OnInit {
     } else {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'accepted');
+        this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice');
         this.stafflistCopy = this.ticketList
 
       });
     }
-    
     this.getCompanylist();
     this.getAppnamelist();
   }
@@ -68,7 +62,7 @@ export class AcceptedticketsComponent implements OnInit {
 
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
-      let temp: any = data.filter(x => x.status == 'accepted');
+      let temp: any = data.filter(x => x.status == 'Assigned to DigiOffice');
 
       const key = 'companyname';
 
@@ -82,7 +76,7 @@ export class AcceptedticketsComponent implements OnInit {
   public getAppnamelist() {
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
-      let temp: any = data.filter(x => x.status == 'accepted');
+      let temp: any = data.filter(x => x.status == 'Assigned to DigiOffice');
 
       const key = 'applicationName';
 
@@ -125,14 +119,14 @@ export class AcceptedticketsComponent implements OnInit {
         if (this.companyName == 0) {
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
-            this.ticketList = data.filter(x => x.status == 'accepted');
+            this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice');
     
     
           });
         } else {
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
-            this.ticketList = data.filter(x => x.status == 'accepted' && x.companyname == this.companyName);
+            this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice' && x.companyname == this.companyName);
           });
         }
       }
@@ -146,7 +140,7 @@ export class AcceptedticketsComponent implements OnInit {
         if (this.applicationName == 0) {
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
-            this.ticketList = data.filter(x => x.status == 'accepted');
+            this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice');
     
     
           });
@@ -183,7 +177,7 @@ export class AcceptedticketsComponent implements OnInit {
         debugger
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
-            this.ticketList = data.filter(x => x.status == 'accepted' && x.date>=this.startdate && x.date<=this.enddate);
+            this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice' && x.date>=this.startdate && x.date<=this.enddate);
           });
       }
     
@@ -193,7 +187,7 @@ export class AcceptedticketsComponent implements OnInit {
         debugger
           this.AmazeSupportService.GetSupportTickets().subscribe(data => {
             debugger
-            this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'accepted');
+            this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'Assigned to DigiOffice');
           });
       }
 
@@ -255,4 +249,5 @@ export class AcceptedticketsComponent implements OnInit {
          csvExporter.generateCsv(ExportData);
      
        }
+
 }

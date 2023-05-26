@@ -14,32 +14,43 @@ export class NewticketsComponent implements OnInit {
   p: any = 1;
   count1: any = 10;
   stafflistCopy: any;
-  issuefrom:any;
+  issuefrom: any;
   count: any;
   search: any;
   companyName: any;
   ticketList: any;
   comment: any;
   rejectcomments: any;
-  applicationName:any;
-  applicationNamelist:any;
-  loader:any;
-  startdate:any;
-  enddate:any;
-  roleid:any;
+  applicationName: any;
+  applicationNamelist: any;
+  loader: any;
+  startdate: any;
+  enddate: any;
+  roleid: any;
   constructor(private AmazeSupportService: AmazeSupportService) { }
   ngOnInit(): void {
     this.companyName = "0"
-    this.applicationName="0"
-    this.issuefrom="0"
+    this.applicationName = "0"
+    this.issuefrom = "0"
     this.roleid = sessionStorage.getItem('roleid');
     debugger
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x => x.status == 'Open');
-      this.stafflistCopy = this.ticketList
+    if (this.roleid == 3) {
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'Open' && x.applicationName=='R&R');
+        this.stafflistCopy = this.ticketList
 
-    });
+      });
+
+    } else {
+      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+        debugger
+        this.ticketList = data.filter(x => x.status == 'Open');
+        this.stafflistCopy = this.ticketList
+
+      });
+
+    }
 
     this.getCompanylist();
     this.getAppnamelist();
@@ -94,17 +105,17 @@ export class NewticketsComponent implements OnInit {
 
   }
 
-  attachmentlist:any;
-  image(id:any){
+  attachmentlist: any;
+  image(id: any) {
     debugger
     this.AmazeSupportService.GetSupportAttachment().subscribe(
-      data=>{
+      data => {
         debugger
-       this.attachmentlist=data.filter(x=>x.ticketID==id);
-      
+        this.attachmentlist = data.filter(x => x.ticketID == id);
+
       }
     )
-    
+
   }
 
 
@@ -134,10 +145,36 @@ export class NewticketsComponent implements OnInit {
     })
   }
 
-  
-  attachment:any;
-  getattchmentID(details:any){
-    this.attachment=details.attachment
+  public assign(ID: any){
+    debugger
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to assign it.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, assign it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value == true) {
+        var entity = {
+          'id': ID,
+          'Status': 'Assigned to DigiOffice'
+        }
+
+        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(entity).subscribe(data => {
+          debugger
+
+          Swal.fire('Assigned Successfully')
+          location.reload();
+        })
+      }
+    })
+  }
+
+
+  attachment: any;
+  getattchmentID(details: any) {
+    this.attachment = details.attachment
   }
 
 
@@ -222,24 +259,24 @@ export class NewticketsComponent implements OnInit {
       });
     }
 
-  } 
+  }
 
   public GetFilteredissuefrom(event: any) {
-    this.issuefrom=event.target.value
+    this.issuefrom = event.target.value
 
     debugger
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'Open');
-      });
+    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+      debugger
+      this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'Open');
+    });
   }
 
   public getenddate(event: any) {
     debugger
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' && x.date>=this.startdate && x.date<=this.enddate);
-      });
+    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+      debugger
+      this.ticketList = data.filter(x => x.status == 'Open' && x.date >= this.startdate && x.date <= this.enddate);
+    });
   }
 
 
@@ -267,9 +304,9 @@ export class NewticketsComponent implements OnInit {
         Time: String,
         TypeOfApplicationIssue: String,
         Priority: String,
-        // Comment : String
+        Comment: String
       }
-     
+
       singleData.IssueFrom = this.ticketList[i].issuefrom;
       singleData.Id = this.ticketList[i].id;
       singleData.CompanyName = this.ticketList[i].companyname;
@@ -281,7 +318,7 @@ export class NewticketsComponent implements OnInit {
       singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues
       singleData.Priority = this.ticketList[i].priority;
       singleData.Date = this.ticketList[i].date;
-      // singleData.Comment = this.ticketList[i].comment;
+      singleData.Comment = this.ticketList[i].comment;
 
 
       ExportData.push(singleData);

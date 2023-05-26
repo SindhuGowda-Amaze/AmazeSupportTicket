@@ -1,0 +1,39 @@
+.card1 {
+    padding: 100px;
+    background: #ffffff;
+    box-shadow: 1px 1px 15px 3px rgb(0 0 0 / 12%);
+    border-radius: 12px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card10 {
+    padding: 100px;
+    background: #ffffff;
+    box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    width: 100%;
+  }
+  
+  
+  .inputclass {
+    /* height: 46px; */
+    width: 355px;
+    /* left: 290px; */
+    /* top: 316px; */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 2px solid #C7C7C7;
+    outline: none;
+  
+  
+  }
+  
+  h6,
+  h5 {
+    color: #3247d5;
+    text-align: center;
+    width: 200px;
+    font-weight: 900}

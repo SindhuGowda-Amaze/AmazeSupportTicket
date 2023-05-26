@@ -14,6 +14,9 @@ import { RejetcedTicketsComponent } from './rejetced-tickets/rejetced-tickets.co
 import { ClosedTicketsComponent } from './closed-tickets/closed-tickets.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ApiDetailsComponent } from './api-details/api-details.component';
+import { AssignTicketsComponent } from './assign-tickets/assign-tickets.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AcceptedticketsComponent,
     RejetcedTicketsComponent,
     ClosedTicketsComponent,
+    ApiDetailsComponent,
+    AssignTicketsComponent,
+
     
   ],
   imports: [
