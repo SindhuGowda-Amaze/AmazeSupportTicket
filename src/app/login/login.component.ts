@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.admin="admin"
     this.Asticom="Asticom"
-    this.HCXTeam="HCXTeam"
+    this.HCXTeam="HCX"
   
     this.showpassword=0;
   }
