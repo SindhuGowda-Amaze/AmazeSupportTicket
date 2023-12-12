@@ -10,6 +10,7 @@ import { NewticketsComponent } from './newtickets/newtickets.component';
 import { RejetcedTicketsComponent } from './rejetced-tickets/rejetced-tickets.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AssignTicketsComponent } from './assign-tickets/assign-tickets.component';
+import { CompletedticketsComponent } from './completedtickets/completedtickets.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: 'RejetcedTickets', component: RejetcedTicketsComponent },
   { path: 'ClosedTickets', component: ClosedTicketsComponent },
   {path:'ApiDetails',component:ApiDetailsComponent},
-  {path:'AssignTickets',component:AssignTicketsComponent}
+  {path:'AssignTickets',component:AssignTicketsComponent},
+  {path:'completedtickets',component:CompletedticketsComponent},
+  
 ];
 
 @NgModule({

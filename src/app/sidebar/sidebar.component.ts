@@ -49,7 +49,11 @@ export class SidebarComponent implements OnInit {
     this.active = 'rejected';
     localStorage.setItem("clickname", "Rejected")
   }
-
+  completed() {
+    this.active = 'completed';
+    localStorage.setItem("clickname", "Rejected")
+  }
+  
 
   closed() {
     this.active = 'closed';

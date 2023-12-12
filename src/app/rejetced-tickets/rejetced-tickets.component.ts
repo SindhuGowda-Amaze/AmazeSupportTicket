@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AmazeSupportService } from '../amaze-support.service';
 import * as XLSX from 'xlsx';
 import { ExportToCsv } from 'export-to-csv-file';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-rejetced-tickets',
   templateUrl: './rejetced-tickets.component.html',
@@ -42,7 +43,7 @@ export class RejetcedTicketsComponent implements OnInit {
     if (this.roleid == 3) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'rejected' && x.applicationName=='R&R');
+        this.ticketList = data.filter(x => x.status == 'rejected' );
         this.stafflistCopy = this.ticketList
 
       });
@@ -64,7 +65,7 @@ export class RejetcedTicketsComponent implements OnInit {
     if(this.roleid==3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        let temp: any = data.filter(x => x.status == 'rejected' && x.applicationName=='R&R');
+        let temp: any = data.filter(x => x.status == 'rejected' );
   
         const key = 'companyname';
   
@@ -209,7 +210,7 @@ export class RejetcedTicketsComponent implements OnInit {
     if(this.roleid==3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'rejected' && x.applicationName=='R&R' && x.date >= this.startdate && x.date <= this.enddate);
+        this.ticketList = data.filter(x => x.status == 'rejected'  && x.date >= this.startdate && x.date <= this.enddate);
       });
     }else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
@@ -227,7 +228,7 @@ export class RejetcedTicketsComponent implements OnInit {
     if(this.roleid==3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'rejected' && x.applicationName=='R&R');
+        this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'rejected' );
       });
     }
     else{
@@ -299,6 +300,31 @@ export class RejetcedTicketsComponent implements OnInit {
     debugger
     csvExporter.generateCsv(ExportData);
 
+  }
+
+  public Reopen(ID: any) {
+    debugger
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to Reopen it.',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Reopen it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value == true) {
+        var entity = {
+          'id': ID,
+          'Status': 'Reopen'
+        }
+
+        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(entity).subscribe(data => {
+          debugger
+
+          Swal.fire('Reopend Successfully')
+          location.reload();
+        })
+      }
+    })
   }
 
 }

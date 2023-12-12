@@ -45,7 +45,7 @@ export class AcceptedticketsComponent implements OnInit {
     if (this.roleid == 3) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'accepted' && x.applicationName=='R&R');
+        this.ticketList = data.filter(x => x.status == 'accepted' );
         this.stafflistCopy = this.ticketList
 
       });
@@ -104,7 +104,7 @@ export class AcceptedticketsComponent implements OnInit {
     debugger
         var entity = {
           'id': this.ID,
-          'Status': 'closed',
+          'Status': 'completed',
           'CloseComments':this.CloseComments
         }
        

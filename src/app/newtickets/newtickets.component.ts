@@ -37,7 +37,7 @@ export class NewticketsComponent implements OnInit {
     if (this.roleid == 3) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'Open' && x.applicationName=='R&R');
+        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
         this.stafflistCopy = this.ticketList
 
       });
@@ -45,7 +45,7 @@ export class NewticketsComponent implements OnInit {
     } else {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'Open');
+        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
         this.stafflistCopy = this.ticketList
 
       });
@@ -60,7 +60,7 @@ export class NewticketsComponent implements OnInit {
 
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
-      let temp: any = data.filter(x => x.status == 'Open');
+      let temp: any = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
 
       const key = 'companyname';
 
@@ -206,7 +206,7 @@ export class NewticketsComponent implements OnInit {
     if (this.applicationName == 0) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'Open');
+        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
 
 
       });
@@ -225,7 +225,7 @@ export class NewticketsComponent implements OnInit {
     if (this.companyName == 0) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'Open');
+        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
 
 
       });
@@ -246,7 +246,7 @@ export class NewticketsComponent implements OnInit {
     if (this.applicationName == 0) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'Open');
+        this.ticketList = data.filter(x => x.status == 'Open' );
 
 
       });
@@ -275,7 +275,7 @@ export class NewticketsComponent implements OnInit {
     debugger
     this.AmazeSupportService.GetSupportTickets().subscribe(data => {
       debugger
-      this.ticketList = data.filter(x => x.status == 'Open' && x.date >= this.startdate && x.date <= this.enddate);
+      this.ticketList = data.filter(x => (x.status == 'Open' || x.status == 'Reopen') && x.date >= this.startdate && x.date <= this.enddate);
     });
   }
 

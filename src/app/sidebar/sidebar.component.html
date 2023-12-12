@@ -31,7 +31,15 @@
                 <img [ngClass]="active != 'assign' ? 'Active1' : 'Active2'"
                     src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
                 &nbsp;
-                <span [ngClass]="active == 'assign' ? 'Active1' : 'Active3'"> Assigned </span>
+                <span [ngClass]="active == 'assign' ? 'Active1' : 'Active3'"> ASSIGNED </span>
+            </a>
+            <a routerLink="/completedtickets" class="tablinks" (click)="highlight($event)" (click)="completed()">
+                <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                    [ngClass]="active == 'completed' ? 'Active1' : 'Active2'" />
+                <img [ngClass]="active != 'completed' ? 'Active1' : 'Active2'"
+                    src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+                &nbsp;
+                <span [ngClass]="active == 'completed' ? 'Active1' : 'Active3'"> COMPLETED </span>
             </a>
             <a routerLink="/RejetcedTickets" class="tablinks" (click)="highlight($event)" (click)="rejected()">
                 <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
@@ -41,6 +49,9 @@
                 &nbsp;
                 <span [ngClass]="active == 'rejected' ? 'Active1' : 'Active3'"> REJECTED </span>
             </a>
+           
+
+            
 
             <a routerLink="/ClosedTickets" class="tablinks" (click)="highlight($event)" (click)="closed()">
                 <img src="assets/Images/64 Blue/ATTENDANCE/Exit Formality.png" style="width:13% ;margin-right: 17px;"

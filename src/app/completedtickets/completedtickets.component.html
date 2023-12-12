@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-11">
             <br>
-            <p class="headings">Rejected Tickets</p>
+            <p class="headings">Closed Tickets</p>
         </div>
         <div class="col-lg-1">
             <br>
@@ -15,8 +15,8 @@
             <div class="col-lg-1">
                 <p class="filter">Filter By</p>
             </div>
-           
-            <div *ngIf="roleid !=3" class="col-lg-3">
+
+            <div  *ngIf="roleid!=3" class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
                     <option value="0">Select Company Name</option>
@@ -38,20 +38,19 @@
                 <input type="search" class="form-control search" placeholder="Search for Name.." [(ngModel)]="search">
             </div>
         </div>
-
         <br>
-      
-        <div class="row FilterClass" >
+
+        <div class="row FilterClass">
             <div class="col-lg-1"></div>
             <div class="col-lg-3">
-           
+
                 <input class="form-control" id="date" name="date" [(ngModel)]="startdate" type="date"
                     placeholder="Duration">
             </div>
             <div class="col-lg-3">
-       
-                <input class="form-control" id="date" name="date" [(ngModel)]="enddate"
-                    (change)="getenddate($event)" type="date" placeholder="Duration">
+
+                <input class="form-control" id="date" name="date" [(ngModel)]="enddate" (change)="getenddate($event)"
+                    type="date" placeholder="Duration">
             </div>
             <div class="col-lg-3">
                 <select class="form-control" id="issuefrom" name="issuefrom" [(ngModel)]="issuefrom"
@@ -62,7 +61,8 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to Excel</button>
+                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to
+                    Excel</button>
             </div>
         </div>
     </div> <br>
@@ -89,13 +89,13 @@
                             <th>Type Of Application Issue</th>
                             <th>Priority</th>
                             <th>Screenshots</th>
-                            <th>User Commnets</th>
+                            <th>User Comments</th>
+                            <!-- <th>Comments</th> -->
                             <th>Team Comments</th>
                             <th>Action </th>
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr
                             *ngFor="let details of ticketList |paginate: { itemsPerPage: count1, currentPage: p}|filter:search">
                             <td>{{details.issuefrom}}</td>
@@ -108,25 +108,41 @@
                             <td>{{details.time}}</td>
                             <td>{{details.typeOfApplicationIssues}}</td>
                             <td>{{details.priority}}</td>
-                            <td>
-                                <img  src="assets/Images/image.png" style="width:20px; height:20px" (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
-                            </td>
-                            
-                            <td>
+                            <img src="assets/Images/image.png" style="width:20px; height:20px"
+                                (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
+
+                            <!-- <td>{{details.screenShot}}</td> -->
+
+                            <!-- <td>
 
                                 <span style="color:#3247D5;
                          " data-toggle="modal" data-target="#exampleModal4"
                                     (click)="viewUserComments(details.comment)">View</span>
-                            </td>
-                            <td>
+                            </td> -->
 
-                                <span style="color:#3247D5;  " data-toggle="modal" data-target="#exampleModal3"
-                                    (click)="view(details.rejectedComments)">View</span>
+                            <td>
+                                <span [innerHTML]="details.chapterdescription"></span>
+                                <span style="color:#3247D5;
+                         " data-toggle="modal" data-target="#exampleModal3" (click)="view(details.comment)">View
+                                </span>
+                            </td>
+
+
+                            <!-- <td>
+                                 <span [innerHTML]="details.chapterdescription"></span> 
+                                <span style="color:#3247D5;
+                         " data-toggle="modal" data-target="#exampleModal3"
+                                    (click)="view(details.closeComments)">View</span>
+                            </td> -->
+                            <td>
+                                <p>{{details.closeComments}}</p>
                             </td>
                             <td>
                                 <button class="button"
                                         (click)="Reopen(details.id)">ReAssign</button><br><br>
                             </td>
+
+
                         </tr>
                     </tbody>
                 </table>
@@ -169,33 +185,6 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Related Attachments</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-3"  *ngFor="let details of attachmentlist">
-                        <img style="width:100px;height:auto;" src="{{details.attachment}}" (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
-                    </div>
-                    <br>
-                </div>
-                <br>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="cancel" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -225,6 +214,33 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Related Attachments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3" *ngFor="let details of attachmentlist">
+                        <img style="width:100px;height:auto;" src="{{details.attachment}}"
+                            (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
+                    </div>
+                    <br>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -238,7 +254,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img style="width:700px;height:auto;" src="{{attachment}}"  data-toggle="modal" data-target="#exampleModal5"><br>
+                        <img style="width:700px;height:auto;" src="{{attachment}}" data-toggle="modal"
+                            data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>
@@ -246,6 +263,34 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="cancel" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-size: 19px;color:#3247D5">Comments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" style="color:#0C275A ;font-size: 13px;">
+                        <p [innerHTML]="comment"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-9"></div>
+                <!-- <div class="col-lg-3">
+                    <button type="button" class="btn btn-secondary button" data-dismiss="modal">Close</button>
+                </div> -->
+
             </div>
         </div>
     </div>

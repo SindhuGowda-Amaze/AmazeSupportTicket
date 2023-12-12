@@ -40,7 +40,7 @@ export class AssignTicketsComponent implements OnInit {
     if (this.roleid == 3) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice' && x.applicationName=='R&R');
+        this.ticketList = data.filter(x => x.status == 'Assigned to DigiOffice' );
         this.stafflistCopy = this.ticketList
 
       });
@@ -98,7 +98,7 @@ export class AssignTicketsComponent implements OnInit {
     debugger
         var entity = {
           'id': this.ID,
-          'Status': 'closed',
+          'Status': 'completed',
           'CloseComments':this.CloseComments
         }
        

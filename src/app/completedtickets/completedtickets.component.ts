@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AmazeSupportService } from '../amaze-support.service';
 import { ExportToCsv } from 'export-to-csv-file';
-
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-closed-tickets',
-  templateUrl: './closed-tickets.component.html',
-  styleUrls: ['./closed-tickets.component.css']
+  selector: 'app-completedtickets',
+  templateUrl: './completedtickets.component.html',
+  styleUrls: ['./completedtickets.component.css']
 })
-export class ClosedTicketsComponent implements OnInit {
+export class CompletedticketsComponent implements OnInit {
 
-   
   term: any;
   p: any = 1;
   count1: any = 10;
@@ -41,22 +40,12 @@ roleid:any
     //   this.roleid = sessionStorage.getItem('roleid');
     
     // });
-    if (this.roleid == 3) {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'closed' );
-        this.stafflistCopy = this.ticketList
+    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
+      debugger
+      this.ticketList = data.filter(x => x.status == 'completed');
+      this.stafflistCopy = this.ticketList
 
-      });
-
-    } else {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'closed');
-        this.stafflistCopy = this.ticketList
-
-      });
-    }
+    });
     this.getCompanylist();
     this.getAppnamelist();
   }
@@ -66,7 +55,7 @@ roleid:any
     if(this.roleid==3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        let temp: any = data.filter(x => x.status == 'closed' );
+        let temp: any = data.filter(x => x.status == 'completed' );
   
         const key = 'companyname';
   
@@ -79,7 +68,7 @@ roleid:any
     }else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        let temp: any = data.filter(x => x.status == 'closed');
+        let temp: any = data.filter(x => x.status == 'completed');
   
         const key = 'companyname';
   
@@ -96,7 +85,7 @@ roleid:any
     if(this.roleid==3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        let temp: any = data.filter(x => x.status == 'closed' );
+        let temp: any = data.filter(x => x.status == 'completed' );
   
         const key = 'applicationName';
   
@@ -110,7 +99,7 @@ roleid:any
     else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        let temp: any = data.filter(x => x.status == 'closed');
+        let temp: any = data.filter(x => x.status == 'completed');
   
         const key = 'applicationName';
   
@@ -145,14 +134,14 @@ roleid:any
     if (this.companyName == 0) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'closed');
+        this.ticketList = data.filter(x => x.status == 'completed');
 
 
       });
     } else {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'closed' && x.companyname == this.companyName);
+        this.ticketList = data.filter(x => x.status == 'completed' && x.companyname == this.companyName);
 
 
       });
@@ -168,21 +157,44 @@ roleid:any
     if (this.applicationName == 0) {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'closed');
+        this.ticketList = data.filter(x => x.status == 'completed');
 
 
       });
     } else {
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'closed' && x.applicationName == this.applicationName);
+        this.ticketList = data.filter(x => x.status == 'completed' && x.applicationName == this.applicationName);
 
 
       });
     }
 
   } 
+  public Reopen(ID: any) {
+    debugger
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to Reopen it.',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Reopen it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value == true) {
+        var entity = {
+          'id': ID,
+          'Status': 'Reopen'
+        }
 
+        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(entity).subscribe(data => {
+          debugger
+
+          Swal.fire('Reopend Successfully')
+          location.reload();
+        })
+      }
+    })
+  }
   attachmentlist:any;
   image(id:any){
     debugger
@@ -201,13 +213,13 @@ roleid:any
     if(this.roleid==3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'closed'  &&  x.date>=this.startdate && x.date<=this.enddate);
+        this.ticketList = data.filter(x => x.status == 'completed'  &&  x.date>=this.startdate && x.date<=this.enddate);
       });
     }
     else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x => x.status == 'closed' && x.date>=this.startdate && x.date<=this.enddate);
+        this.ticketList = data.filter(x => x.status == 'completed' && x.date>=this.startdate && x.date<=this.enddate);
       });
     }
       
@@ -220,13 +232,13 @@ roleid:any
     if(this.roleid == 3){
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'closed' );
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'completed' );
       });
     }
     else{
       this.AmazeSupportService.GetSupportTickets().subscribe(data => {
         debugger
-        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'closed');
+        this.ticketList = data.filter(x =>x.issuefrom== this.issuefrom && x.status == 'completed');
       });
     }
       
