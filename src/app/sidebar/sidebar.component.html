@@ -49,6 +49,14 @@
                 &nbsp;
                 <span [ngClass]="active == 'rejected' ? 'Active1' : 'Active3'"> REJECTED </span>
             </a>
+            <a routerLink="/revalidationtickets" class="tablinks" (click)="highlight($event)" (click)="REVALIDATION()">
+                <img src="assets/Images/64 Blue/leaves.png" style="width:13% ;margin-right: 17px;"
+                    [ngClass]="active == 'REVALIDATION' ? 'Active1' : 'Active2'" />
+                <img [ngClass]="active != 'REVALIDATION' ? 'Active1' : 'Active2'"
+                    src="assets/Images/64/leaves.png" style="width:13%; margin-right: 17px;">
+                &nbsp;
+                <span [ngClass]="active == 'REVALIDATION' ? 'Active1' : 'Active3'"> REVALIDATION </span>
+            </a>
            
 
             

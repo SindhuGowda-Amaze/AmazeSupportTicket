@@ -62,7 +62,8 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to Excel</button>
+                <button class=" btn btn-primary editable-table-button btn-xs btncolor" (click)="exportexcel()">Export to
+                    Excel</button>
             </div>
         </div>
     </div> <br>
@@ -116,18 +117,42 @@
                             <td>
                                 <span [innerHTML]="details.chapterdescription"></span>
                                 <span style="color:#3247D5;
-                                    " data-toggle="modal" data-target="#exampleModal3" (click)="view(details.comment)">View
+                                    " data-toggle="modal" data-target="#exampleModal3"
+                                    (click)="view(details.comment)">View
                                 </span>
-                                <!-- <td>{{details.comment}}</td> -->
 
-
-                                <!-- <td>{{details.comment}}</td>  -->
 
                             <td *ngIf="roleid==1 || roleid==3">
+                                <!-- <button type="button" (click)="getdate(details.date)"
+                                class="btn btn-primary editable-table-button btn-xs btncolor" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Dates
+                            </button>
+                            <div class="modal top fade" id="exampleModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true"
+                                data-mdb-keyboard="true">
+                                <div class="modal-dialog  ">
+                                    <div class="modal-content" style="margin-left: 403px;
+                                margin-top: 260px;">
+                                        <div class="modal-header">
+                                            <h3>Dates</h3>
+                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <p><span>Start Date</span> : {{date|date}}</p>
+                                                <p><span>Last Update</span> : {{date|date}}</p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
                                 <button class=" btn btn-primary editable-table-button btn-xs btncolor"
                                     (click)="accept(details.id)">Accept</button><br><br>
 
-                                    <button *ngIf="roleid==3"  class=" btn btn-primary editable-table-button btn-xs btncolor"
+                                <button *ngIf="roleid==3" class=" btn btn-primary editable-table-button btn-xs btncolor"
                                     (click)="assign(details.id)">Assign</button><br><br>
 
                                 <button class=" btn btn-primary editable-table-button btn-xs btncolor"
@@ -135,7 +160,7 @@
                                     data-target="#myModal">Reject</button>
 
                             </td>
-                        
+
                         </tr>
                     </tbody>
                 </table>
@@ -219,7 +244,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3" *ngFor="let details of attachmentlist">
-                        <img style="width:100px;height:auto;" src="{{details.attachment}}" (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
+                        <img style="width:100px;height:auto;" src="{{details.attachment}}"
+                            (click)="getattchmentID(details)" data-toggle="modal" data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>
@@ -245,7 +271,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img style="width:700px;height:auto;" src="{{attachment}}"   data-toggle="modal" data-target="#exampleModal5"><br>
+                        <img style="width:700px;height:auto;" src="{{attachment}}" data-toggle="modal"
+                            data-target="#exampleModal5"><br>
                     </div>
                     <br>
                 </div>

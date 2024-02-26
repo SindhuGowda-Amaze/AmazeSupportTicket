@@ -49,6 +49,11 @@ export class SidebarComponent implements OnInit {
     this.active = 'rejected';
     localStorage.setItem("clickname", "Rejected")
   }
+  REVALIDATION() {
+    this.active = 'REVALIDATION';
+    localStorage.setItem("clickname", "REVALIDATION")
+  }
+  
   completed() {
     this.active = 'completed';
     localStorage.setItem("clickname", "Rejected")

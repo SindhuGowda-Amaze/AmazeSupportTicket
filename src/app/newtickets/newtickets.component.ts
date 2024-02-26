@@ -6,10 +6,9 @@ import { ExportToCsv } from 'export-to-csv-file';
 @Component({
   selector: 'app-newtickets',
   templateUrl: './newtickets.component.html',
-  styleUrls: ['./newtickets.component.css']
+  styleUrls: ['./newtickets.component.css'],
 })
 export class NewticketsComponent implements OnInit {
-
   term: any;
   p: any = 1;
   count1: any = 10;
@@ -27,29 +26,29 @@ export class NewticketsComponent implements OnInit {
   startdate: any;
   enddate: any;
   roleid: any;
-  constructor(private AmazeSupportService: AmazeSupportService) { }
+  constructor(private AmazeSupportService: AmazeSupportService) {}
   ngOnInit(): void {
-    this.companyName = "0"
-    this.applicationName = "0"
-    this.issuefrom = "0"
+    this.companyName = '0';
+    this.applicationName = '0';
+    this.issuefrom = '0';
     this.roleid = sessionStorage.getItem('roleid');
-    debugger
+    debugger;
     if (this.roleid == 3) {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
-        this.stafflistCopy = this.ticketList
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' || x.status == 'Reopen'
+        );
+        this.stafflistCopy = this.ticketList;
       });
-
     } else {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
-        this.stafflistCopy = this.ticketList
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' || x.status == 'Reopen'
+        );
+        this.stafflistCopy = this.ticketList;
       });
-
     }
 
     this.getCompanylist();
@@ -57,239 +56,244 @@ export class NewticketsComponent implements OnInit {
   }
   companylist: any;
   public getCompanylist() {
-
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
+    this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+      debugger;
+      let temp: any = data.filter(
+        (x) => x.status == 'Open' || x.status == 'Reopen'
+      );
 
       const key = 'companyname';
 
-      this.companylist = [...new Map(temp.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
+      this.companylist = [
+        ...new Map(
+          temp.map((item: { [x: string]: any }) => [item[key], item])
+        ).values(),
+      ];
 
       console.log(this.companylist);
-
     });
   }
   public getAppnamelist() {
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      let temp: any = data.filter(x => x.status == 'Open');
+    this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+      debugger;
+      let temp: any = data.filter((x) => x.status == 'Open');
 
       const key = 'applicationName';
 
-      this.applicationNamelist = [...new Map(temp.map((item: { [x: string]: any; }) =>
-        [item[key], item])).values()];
+      this.applicationNamelist = [
+        ...new Map(
+          temp.map((item: { [x: string]: any }) => [item[key], item])
+        ).values(),
+      ];
 
       console.log(this.applicationNamelist);
-
     });
   }
 
   Attachmentlist: any;
 
   ShowAttachments(id: any) {
-    debugger
-    this.AmazeSupportService.GetSupportAttachment().subscribe(data => {
-      debugger
+    debugger;
+    this.AmazeSupportService.GetSupportAttachment().subscribe((data) => {
+      debugger;
       this.Attachmentlist = data;
-    })
+    });
   }
 
   openAttchments(photo: any) {
-    window.open(photo, "_blank")
+    window.open(photo, '_blank');
   }
 
   view(desc: any) {
     this.comment = desc;
-
   }
 
   attachmentlist: any;
   image(id: any) {
-    debugger
-    this.AmazeSupportService.GetSupportAttachment().subscribe(
-      data => {
-        debugger
-        this.attachmentlist = data.filter(x => x.ticketID == id);
-
-      }
-    )
-
+    debugger;
+    this.AmazeSupportService.GetSupportAttachment().subscribe((data) => {
+      debugger;
+      this.attachmentlist = data.filter((x) => x.ticketID == id);
+    });
   }
 
-
   public accept(ID: any) {
-    debugger
+    debugger;
     Swal.fire({
       title: 'Are you sure?',
       text: 'You want to accept it.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, Accept it!',
-      cancelButtonText: 'No, keep it'
+      cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.value == true) {
         var entity = {
-          'id': ID,
-          'Status': 'accepted'
-        }
+          id: ID,
+          Status: 'accepted',
+        };
 
-        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(entity).subscribe(data => {
-          debugger
+        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(
+          entity
+        ).subscribe((data) => {
+          debugger;
 
-          Swal.fire('Accepted Successfully')
+          Swal.fire('Accepted Successfully');
           location.reload();
-        })
+        });
       }
-    })
+    });
   }
 
-  public assign(ID: any){
-    debugger
+  public assign(ID: any) {
+    debugger;
     Swal.fire({
       title: 'Are you sure?',
       text: 'You want to assign it.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, assign it!',
-      cancelButtonText: 'No, keep it'
+      cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.value == true) {
         var entity = {
-          'id': ID,
-          'Status': 'Assigned to DigiOffice'
-        }
+          id: ID,
+          Status: 'Assigned to DigiOffice',
+        };
 
-        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(entity).subscribe(data => {
-          debugger
+        this.AmazeSupportService.UpdateAcceptStatusSupportTickets(
+          entity
+        ).subscribe((data) => {
+          debugger;
 
-          Swal.fire('Assigned Successfully')
+          Swal.fire('Assigned Successfully');
           location.reload();
-        })
+        });
       }
-    })
+    });
   }
-
 
   attachment: any;
   getattchmentID(details: any) {
-    this.attachment = details.attachment
+    this.attachment = details.attachment;
   }
-
 
   ID: any;
   public getreject(even: any) {
-    this.ID = even
+    this.ID = even;
   }
 
   public reject() {
-    debugger
+    debugger;
     var entity = {
-      'id': this.ID,
-      'Status': 'rejected',
-      'RejectedComments': this.rejectcomments
-    }
+      id: this.ID,
+      Status: 'rejected',
+      RejectedComments: this.rejectcomments,
+    };
 
-    this.AmazeSupportService.UpdateRejectStatusSupportTickets(entity).subscribe(data => {
-      debugger
+    this.AmazeSupportService.UpdateRejectStatusSupportTickets(entity).subscribe(
+      (data) => {
+        debugger;
 
-      Swal.fire('Rejected Successfully')
-      location.reload();
-    })
+        Swal.fire('Rejected Successfully');
+        location.reload();
+      }
+    );
   }
 
-
   public GetCompanyName(evn: any) {
-    this.companyName = evn.target.value
+    this.companyName = evn.target.value;
 
     if (this.applicationName == 0) {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
-
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' || x.status == 'Reopen'
+        );
       });
     } else {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' && x.applicationName == this.applicationName);
-
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' && x.applicationName == this.applicationName
+        );
       });
     }
   }
 
   public GetFilteredCompanyName() {
-
     if (this.companyName == 0) {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' || x.status == 'Reopen');
-
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' || x.status == 'Reopen'
+        );
       });
     } else {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' && x.companyname == this.companyName);
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' && x.companyname == this.companyName
+        );
       });
     }
   }
 
   public GetapplicationName(evn: any) {
-    this.applicationName = evn.target.value
+    this.applicationName = evn.target.value;
   }
 
   public GetFilteredapplicationName() {
-
     if (this.applicationName == 0) {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' );
-
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter((x) => x.status == 'Open');
       });
     } else {
-      this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-        debugger
-        this.ticketList = data.filter(x => x.status == 'Open' && x.applicationName == this.applicationName);
-
-
+      this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+        debugger;
+        this.ticketList = data.filter(
+          (x) => x.status == 'Open' && x.applicationName == this.applicationName
+        );
       });
     }
-
   }
 
   public GetFilteredissuefrom(event: any) {
-    this.issuefrom = event.target.value
+    this.issuefrom = event.target.value;
 
-    debugger
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x => x.issuefrom == this.issuefrom && x.status == 'Open');
+    debugger;
+    this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+      debugger;
+      this.ticketList = data.filter(
+        (x) => x.issuefrom == this.issuefrom && x.status == 'Open'
+      );
     });
   }
 
   public getenddate(event: any) {
-    debugger
-    this.AmazeSupportService.GetSupportTickets().subscribe(data => {
-      debugger
-      this.ticketList = data.filter(x => (x.status == 'Open' || x.status == 'Reopen') && x.date >= this.startdate && x.date <= this.enddate);
+    debugger;
+    this.AmazeSupportService.GetSupportTickets().subscribe((data) => {
+      debugger;
+      this.ticketList = data.filter(
+        (x) =>
+          (x.status == 'Open' || x.status == 'Reopen') &&
+          x.date >= this.startdate &&
+          x.date <= this.enddate
+      );
     });
   }
-
 
   //Code for Export to excel//
 
   undefined: any;
-  sequenceNumber1: any
-  attendancelist: any
+  sequenceNumber1: any;
+  attendancelist: any;
   public exportexcel() {
-    debugger
+    debugger;
     var ExportData = [];
     this.sequenceNumber1 = 0;
-    this.undefined = 'NA'
+    this.undefined = 'NA';
     for (let i = 0; i < this.ticketList.length; i++) {
       debugger;
       this.sequenceNumber1 = i + 1;
@@ -304,25 +308,25 @@ export class NewticketsComponent implements OnInit {
         Time: String,
         TypeOfApplicationIssue: String,
         Priority: String,
-        Comment: String
-      }
+        Comment: String,
+      };
 
       singleData.IssueFrom = this.ticketList[i].issuefrom;
       singleData.Id = this.ticketList[i].id;
       singleData.CompanyName = this.ticketList[i].companyname;
       singleData.ApplicationName = this.ticketList[i].applicationName;
-      singleData.EmployeeID = this.ticketList[i].staffID
+      singleData.EmployeeID = this.ticketList[i].staffID;
       singleData.Role = this.ticketList[i].role;
       singleData.Date = this.ticketList[i].date;
       singleData.Time = this.ticketList[i].time;
-      singleData.TypeOfApplicationIssue = this.ticketList[i].typeOfApplicationIssues
+      singleData.TypeOfApplicationIssue =
+        this.ticketList[i].typeOfApplicationIssues;
       singleData.Priority = this.ticketList[i].priority;
       singleData.Date = this.ticketList[i].date;
       singleData.Comment = this.ticketList[i].comment;
 
-
       ExportData.push(singleData);
-      debugger
+      debugger;
     }
     const Export_to_excel_options = {
       fieldSeparator: ',',
@@ -334,13 +338,15 @@ export class NewticketsComponent implements OnInit {
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: true,
-      filename: 'EMPLOYEE ATTEDANCE REPORT'
+      filename: 'EMPLOYEE ATTEDANCE REPORT',
     };
     const csvExporter = new ExportToCsv(Export_to_excel_options);
-    debugger
+    debugger;
     csvExporter.generateCsv(ExportData);
+  }
 
+  date: any;
+  getdate(date: any) {
+    this.date = date;
   }
 }
-
-

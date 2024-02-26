@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-11">
             <br>
-            <p class="headings">Closed Tickets</p>
+            <p class="headings">Revalidation Tickets</p>
         </div>
         <div class="col-lg-1">
             <br>
@@ -16,7 +16,7 @@
                 <p class="filter">Filter By</p>
             </div>
 
-            <div *ngIf="roleid!=3" class="col-lg-3">
+            <div *ngIf="roleid !=3" class="col-lg-3">
                 <select class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName"
                     (change)="GetCompanyName($event)" (change)="GetFilteredCompanyName()">
                     <option value="0">Select Company Name</option>
@@ -90,9 +90,7 @@
                             <th>Priority</th>
                             <th>Screenshots</th>
                             <th>User Comments</th>
-                            <!-- <th>Comments</th> -->
-                            <th>Team Comments</th>
-                            <th>Action </th>
+                            <th *ngIf="roleid==1 || roleid==3">Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,17 +106,9 @@
                             <td>{{details.time}}</td>
                             <td>{{details.typeOfApplicationIssues}}</td>
                             <td>{{details.priority}}</td>
+                            <!-- <td>{{details.screenShot}}</td> -->
                             <img src="assets/Images/image.png" style="width:20px; height:20px"
                                 (click)="image(details.id)" data-toggle="modal" data-target="#exampleModal1">
-
-                            <!-- <td>{{details.screenShot}}</td> -->
-
-                            <!-- <td>
-
-                                <span style="color:#3247D5;
-                         " data-toggle="modal" data-target="#exampleModal4"
-                                    (click)="viewUserComments(details.comment)">View</span>
-                            </td> -->
 
                             <td>
                                 <span [innerHTML]="details.chapterdescription"></span>
@@ -127,47 +117,14 @@
                                 </span>
                             </td>
 
+                            <td *ngIf="roleid==1 || roleid==3">
+                                <button class=" btn btn-primary editable-table-button btn-xs btncolor"
+                                    (click)="getaccept(details.id)" data-toggle="modal"
+                                    data-target="#myModal">Complete</button>
 
-                            <!-- <td>
-                                 <span [innerHTML]="details.chapterdescription"></span> 
-                                <span style="color:#3247D5;
-                         " data-toggle="modal" data-target="#exampleModal3"
-                                    (click)="view(details.closeComments)">View</span>
-                            </td> -->
-                            <td>
-                                <p>{{details.closeComments}}</p>
+                                <!-- <button class=" btn btn-primary editable-table-button btn-xs btncolor">Reject</button> -->
+
                             </td>
-
-                            <button type="button" (click)="getdate(details.date)"
-                                class="btn btn-primary editable-table-button btn-xs btncolor" data-toggle="modal"
-                                data-target="#exampleModal">
-                                Dates
-                            </button>
-                            <div class="modal top fade" id="exampleModal" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true"
-                                data-mdb-keyboard="true">
-                                <div class="modal-dialog  ">
-                                    <div class="modal-content" style="margin-left: 403px;
-                                margin-top: 260px;">
-                                        <div class="modal-header">
-                                            <h3>Dates</h3>
-                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div>
-                                                <p><span>Start Date</span> : {{date|date}}</p>
-                                                <p><span>Last Update</span> : {{date|date}}</p>
-                                                <p>Assignment Date: {{date|date}}</p>
-                                                <p>Resolution Date: {{date|date}}</p>
-                                                <p>Close Date: {{date|date}}</p>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </tr>
                     </tbody>
                 </table>
@@ -181,6 +138,35 @@
     </div>
 
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog  modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Close Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+
+                        <p>Comments:</p>
+
+                    </div>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" rows="6" id="CloseComments" name="CloseComments"
+                            [(ngModel)]="CloseComments"></textarea>
+                    </div>
+                </div><br>
+                <p style="text-align: center;"><button class=" btn btn-primary editable-table-button btn-xs btncolor"
+                        (click)="close()" data-toggle="modal" data-target="#myModal">Close</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -195,36 +181,6 @@
                 <div class="row">
                     <div class="col-lg-12" style="color:#0C275A ;font-size: 13px;">
                         <p [innerHTML]="comment"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-lg-9"></div>
-                <!-- <div class="col-lg-3">
-                    <button type="button" class="btn btn-secondary button" data-dismiss="modal">Close</button>
-                </div> -->
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="font-size: 19px;color:#3247D5">User Comments</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12" style="color:#0C275A ;font-size: 13px;">
-                        <p *ngIf="Usercomment!=null" [innerHTML]="Usercomment"></p>
-                        <p *ngIf="Usercomment==null">NA</p>
                     </div>
                 </div>
             </div>
@@ -266,6 +222,7 @@
     </div>
 </div>
 
+
 <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -288,34 +245,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="cancel" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="font-size: 19px;color:#3247D5">Comments</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12" style="color:#0C275A ;font-size: 13px;">
-                        <p [innerHTML]="comment"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-lg-9"></div>
-                <!-- <div class="col-lg-3">
-                    <button type="button" class="btn btn-secondary button" data-dismiss="modal">Close</button>
-                </div> -->
-
             </div>
         </div>
     </div>

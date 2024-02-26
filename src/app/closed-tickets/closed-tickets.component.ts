@@ -129,6 +129,12 @@ roleid:any
     this.comment=desc;
     
   }
+  date:any
+  getdate(date:any){
+    this.date=date;
+    
+  }
+  
   Usercomment:any;
   viewUserComments(user:any){
     this.Usercomment=user;

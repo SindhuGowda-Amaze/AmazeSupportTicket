@@ -11,6 +11,7 @@ import { RejetcedTicketsComponent } from './rejetced-tickets/rejetced-tickets.co
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AssignTicketsComponent } from './assign-tickets/assign-tickets.component';
 import { CompletedticketsComponent } from './completedtickets/completedtickets.component';
+import { RevalidationticketsComponent } from './revalidationtickets/revalidationtickets.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'ApiDetails',component:ApiDetailsComponent},
   {path:'AssignTickets',component:AssignTicketsComponent},
   {path:'completedtickets',component:CompletedticketsComponent},
+  {path:'revalidationtickets',component:RevalidationticketsComponent},
   
 ];
 

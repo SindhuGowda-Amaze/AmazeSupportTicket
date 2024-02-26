@@ -17,6 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ApiDetailsComponent } from './api-details/api-details.component';
 import { AssignTicketsComponent } from './assign-tickets/assign-tickets.component';
 import { CompletedticketsComponent } from './completedtickets/completedtickets.component';
+import { RevalidationticketsComponent } from './revalidationtickets/revalidationtickets.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CompletedticketsComponent } from './completedtickets/completedtickets.c
     ApiDetailsComponent,
     AssignTicketsComponent,
     CompletedticketsComponent,
+    RevalidationticketsComponent,
 
     
   ],
