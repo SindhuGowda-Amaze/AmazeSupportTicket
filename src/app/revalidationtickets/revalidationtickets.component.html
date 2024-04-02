@@ -121,9 +121,9 @@
                                 <button class=" btn btn-primary editable-table-button btn-xs btncolor"
                                     (click)="getaccept(details.id)" data-toggle="modal"
                                     data-target="#myModal">Complete</button>
-
-                                <!-- <button class=" btn btn-primary editable-table-button btn-xs btncolor">Reject</button> -->
-
+                                    <br><br>
+                                    <button *ngIf="roleid==3" class=" btn btn-primary editable-table-button btn-xs btncolor"
+                                    (click)="assign(details.id)">Assign</button><br><br>
                             </td>
                         </tr>
                     </tbody>
